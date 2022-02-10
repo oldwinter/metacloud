@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "pflannery.vscode-versionlens",
+        "octref.vetur",
+        "znck.vue",
+        "dbaeumer.vscode-eslint"
+    ]
+}
