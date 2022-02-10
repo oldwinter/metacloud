@@ -1,4 +1,11 @@
 {
     "recommendations": [
+        "mhutchie.git-graph",
+        "gruntfuggly.todo-tree",
+        "wayou.vscode-todo-highlight",
+        "eamodio.gitlens",
+        "yzhang.markdown-all-in-one",
+        "shd101wyy.markdown-preview-enhanced",
+        "DavidAnson.vscode-markdownlint"
     ]
 }
