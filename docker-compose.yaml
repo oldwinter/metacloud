@@ -14,14 +14,17 @@ services:
       dockerfile: .devcontainer/Dockerfile
     container_name: meta-portal
     restart: always
+    volumes:
+      # Mount the root folder that contains .git
+      - .:/workspace/MetaCloud:cached
     ports:
       - '8080:8080'
-    depends_on:
-      - apig
+    # depends_on:
+    #   - apig
     command: [ 'nginx-debug', '-g', 'daemon off;' ]
     networks:
       network:
-        ipv4_address: 192.168.0.21
+        ipv4_address: 192.168.0.31
 
   server-gin:
     build:
@@ -29,6 +32,9 @@ services:
       dockerfile: .devcontainer/Dockerfile
     container_name: meta-server-gin
     restart: always
+    volumes:
+      # Mount the root folder that contains .git
+      - .:/workspace:cached
     ports:
       - '8001:8001'
     depends_on:
@@ -39,7 +45,7 @@ services:
       - redis
     networks:
       network:
-        ipv4_address: 192.168.0.23
+        ipv4_address: 192.168.0.32
   server-toy:
     build:
       context: ./server/toy
@@ -50,7 +56,7 @@ services:
       - '8002:8002'
     networks:
       network:
-        ipv4_address: 192.168.0.24
+        ipv4_address: 192.168.0.33
   mysql:
     image: mysql:8.0
     container_name: meta-mysql
@@ -63,19 +69,19 @@ services:
       MYSQL_ROOT_PASSWORD: 'mc@123' # root管理员用户密码
     networks:
       network:
-        ipv4_address: 192.168.0.25
-  apig:
-    image: kong:2.7.1-ubuntu
-    container_name: meta-server-apig
-    restart: always
-    ports:
-      - '8000:8000'
-    depends_on:
-      - server-gin
-      - server-toy
-    networks:
-      network:
-        ipv4_address: 192.168.0.22
+        ipv4_address: 192.168.0.254
+  # apig:
+  #   image: kong:2.7.1-ubuntu
+  #   container_name: meta-server-apig
+  #   restart: always
+  #   ports:
+  #     - '8000:8000'
+  #   depends_on:
+  #     - server-gin
+  #     - server-toy
+  #   networks:
+  #     network:
+  #       ipv4_address: 192.168.0.22
   redis:
     image: redis:7.0-rc-bullseye
     container_name: meta-redis # 容器名
@@ -84,4 +90,4 @@ services:
       - '16379:6379'
     networks:
       network:
-        ipv4_address: 192.168.0.26
+        ipv4_address: 192.168.0.255
