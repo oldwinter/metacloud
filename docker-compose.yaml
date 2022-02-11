@@ -11,26 +11,26 @@ services:
   portal:
     build:
       context: ./portal
-      dockerfile: ./prodcontainer/Dockerfile
-    container_name: meta-web
+      dockerfile: .devcontainer/Dockerfile
+    container_name: meta-portal
     restart: always
     ports:
       - '8080:8080'
     depends_on:
-      - server
+      - apig
     command: [ 'nginx-debug', '-g', 'daemon off;' ]
     networks:
       network:
         ipv4_address: 192.168.0.21
 
-  server:
+  server-gin:
     build:
-      context: ./server
-      dockerfile: ./prodcontainer/Dockerfile
-    container_name: meta-server
+      context: ./server/gin
+      dockerfile: .devcontainer/Dockerfile
+    container_name: meta-server-gin
     restart: always
     ports:
-      - '9000:9000'
+      - '8001:8001'
     depends_on:
       - mysql
       - redis
@@ -39,28 +39,49 @@ services:
       - redis
     networks:
       network:
-        ipv4_address: 192.168.0.22
-
+        ipv4_address: 192.168.0.23
+  server-toy:
+    build:
+      context: ./server/toy
+      dockerfile: .devcontainer/Dockerfile
+    container_name: meta-server-toy
+    restart: always
+    ports:
+      - '8002:8002'
+    networks:
+      network:
+        ipv4_address: 192.168.0.24
   mysql:
-    image: mysql:8.0.21
+    image: mysql:8.0
     container_name: meta-mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
     restart: always
     ports:
       - "13306:3306"  # host物理直接映射端口为13306
     environment:
-      MYSQL_DATABASE: 'qmPlus' # 初始化启动时要创建的数据库的名称
-      MYSQL_ROOT_PASSWORD: 'Aa@6447985' # root管理员用户密码
+      MYSQL_DATABASE: 'MCdev' # 初始化启动时要创建的数据库的名称
+      MYSQL_ROOT_PASSWORD: 'mc@123' # root管理员用户密码
     networks:
       network:
-        ipv4_address: 192.168.0.23
-
+        ipv4_address: 192.168.0.25
+  apig:
+    image: kong:2.7.1-ubuntu
+    container_name: meta-server-apig
+    restart: always
+    ports:
+      - '8000:8000'
+    depends_on:
+      - server-gin
+      - server-toy
+    networks:
+      network:
+        ipv4_address: 192.168.0.22
   redis:
-    image: redis:6.0.6
+    image: redis:7.0-rc-bullseye
     container_name: meta-redis # 容器名
     restart: always
     ports:
       - '16379:6379'
     networks:
       network:
-        ipv4_address: 192.168.0.24
+        ipv4_address: 192.168.0.26
