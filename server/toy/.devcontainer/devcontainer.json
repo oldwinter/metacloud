@@ -6,15 +6,14 @@
 		"dockerfile": "Dockerfile",
 		"context": "..",
 		"args": { 
-			// Update 'VARIANT' to pick a Python version: 3, 3.9, 3.8, 3.7, 3.6.
-			// Append -bullseye or -buster to pin to an OS version.
-			// Use -bullseye variants on local on arm64/Apple Silicon.
 			"VARIANT": "3.9-bullseye",
-			// Options
 			"NODE_VERSION": "lts/*"
 		}
 	},
-
+	// "dockerComposeFile": ".../docker-compose.yaml",
+	// "service": "server-toy",
+	"workspaceFolder": "/workspaces/MetaCloud/server/toy",
+	"shutdownAction": "none",
 
 
 	// Set *default* container specific settings.json values on container create.
@@ -65,11 +64,5 @@
 	"postCreateCommand": "pip3 install -r requirements.txt",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "root",
-
-	"service": "server-toy",
-	// 确保vscode窗口关闭时，容器不会退出
-	"shutdownAction": "none",
-	// Open the sub-folder with the source code
-	"workspaceFolder": "/workspaces/MetaCLoud/server/toy",
+	"remoteUser": "root"
 }
