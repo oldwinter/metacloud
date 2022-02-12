@@ -4,6 +4,15 @@
         "octref.vetur",
         "znck.vue",
         "dbaeumer.vscode-eslint",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+        "hollowtree.vue-snippets",
+        "mgmcdermott.vscode-language-babel",
+        "alefragnani.bookmarks",
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "christian-kohler.npm-intellisense",
+        "tabnine.tabnine-vscode",
+        "johnsoncodehk.volar"
     ]
 }

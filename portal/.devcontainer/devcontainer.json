@@ -22,13 +22,13 @@
 	"extensions": [
 		"dbaeumer.vscode-eslint"
 	],
-// 将本机请求，转发至远程机器的3000端口
+// 将本机请求，转发至远程机器的8000端口
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [3000],
+	"forwardPorts": [8000],
 
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
 	"portsAttributes": {
-		"3000": {
+		"8000": {
 			"label": "Hello Remote World",
 			"onAutoForward": "notify"
 		}
@@ -40,7 +40,7 @@
 	// },
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "npm i",
+	"postCreateCommand": "",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "root"
