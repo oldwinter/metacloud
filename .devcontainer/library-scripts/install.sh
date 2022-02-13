@@ -1,0 +1,1 @@
+nohup bash -c 'minikube start --image-mirror-country=cn &' > minikube.log 2>&1  && 

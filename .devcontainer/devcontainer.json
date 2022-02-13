@@ -8,6 +8,7 @@
 		// Use hirsute or bionic on local arm64/Apple Silicon.
 		"args": { "VARIANT": "focal" }
 	},
+	// "runArgs": ["--init","--network=host"],
 	// "dockerComposeFile": "../docker-compose.yaml",
 	// "service": "devmaster",
 	"workspaceFolder": "/workspaces/MetaCloud",
@@ -18,24 +19,24 @@
 	// 个人开发必用插件
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"mhutchie.git-graph",
-        "gruntfuggly.todo-tree",
-        "wayou.vscode-todo-highlight",
-        "eamodio.gitlens",
-        "shd101wyy.markdown-preview-enhanced",
-        "davidanson.vscode-markdownlint",
-        "ms-azuretools.vscode-docker",
-        "ms-vsliveshare.vsliveshare",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "redhat.vscode-yaml",
-        "mindaro.mindaro",
-        "alefragnani.bookmarks",
-        "github.codespaces",
-        "github.copilot",
-        "github.remotehub",
-        "github.github-vscode-theme",
-        "tabnine.tabnine-vscode",
-        "VisualStudioExptTeam.vscodeintellicode"
+		// "mhutchie.git-graph",
+        // "gruntfuggly.todo-tree",
+        // "wayou.vscode-todo-highlight",
+        // "eamodio.gitlens",
+        // "shd101wyy.markdown-preview-enhanced",
+        // "davidanson.vscode-markdownlint",
+        // "ms-azuretools.vscode-docker",
+        // "ms-vsliveshare.vsliveshare",
+        // // "ms-kubernetes-tools.vscode-kubernetes-tools",
+        // "redhat.vscode-yaml",
+        // "mindaro.mindaro",
+        // // "alefragnani.bookmarks",
+        // "github.codespaces",
+        // "github.copilot",
+        // "github.remotehub",
+        // "github.github-vscode-theme",
+        // // "tabnine.tabnine-vscode",
+        // "VisualStudioExptTeam.vscodeintellicode"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -44,16 +45,41 @@
 
 	// 官方镜像自带 zsh和oh-my-zsh， 这里改成默认用zsh，并加入zsh的kubectl插件，完善自动补全功能
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": [
-		"npm i -g zx", // 谷歌出的一个用js写shell脚本的小工具
-		"npm i -g http-server"  //临时起一个简单web-server的小工具
-	],
 
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": [
+	// 	"npm i -g zx", 			// 谷歌出的一个用js写shell脚本的小工具
+	// 	"npm i -g http-server"  //临时起一个简单web-server的小工具
+
+	// ],
+	"postCreateCommand": "minikube start &&  npm i -g http-server && npm i -g zx" ,
+	"postStartCommand": "minikube start" ,
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "root",
+	"remoteUser": "vscode",
+
+	// feature模式其实就是微软封装的dockerfile里面执行的library-scripts脚本，如果安装失败，可以考虑换成脚本，并改动dockerfile
+	// https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/kubectl-helm.md
 	"features": {
-		"docker-from-docker": "20.10", // from模式，在容器中使用的实际上是宿主机docker
+		// from模式，在容器中使用的实际上是宿主机docker
+		// "docker-from-docker": "latest", 
+		// 
 		// docker in docker 需要宿主机的CPU MEM更多
+		"docker-in-docker": {
+			"version": "latest",
+			"moby": true
+		},
+		"kubectl-helm-minikube": {
+			"version": "latest",
+			"helm": "latest",
+			"minikube": "latest"
+		},
+		"node": "lts"
+
 	}
+
+	// 以下地址被屏蔽，故需要科学上网,pac设置不一定包含，所以暂时先改成全局代理
+	// k8s官方镜像地址：k8s.gcr.io/
+	// 微软的devcontainer基础镜像：mcr.microsoft.com/
+
+	
 }

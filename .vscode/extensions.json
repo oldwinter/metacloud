@@ -2,7 +2,6 @@
     "recommendations": [
         "mhutchie.git-graph",
         "gruntfuggly.todo-tree",
-        "wayou.vscode-todo-highlight",
         "eamodio.gitlens",
         "shd101wyy.markdown-preview-enhanced",
         "davidanson.vscode-markdownlint",
@@ -17,6 +16,7 @@
         "github.remotehub",
         "github.github-vscode-theme",
         "tabnine.tabnine-vscode",
-        "VisualStudioExptTeam.vscodeintellicode"
+        "visualstudioexptteam.vscodeintellicode",
+        "alefragnani.Bookmarks"
     ]
 }
