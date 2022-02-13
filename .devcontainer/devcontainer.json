@@ -41,6 +41,9 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
+
+	// 官方镜像自带 zsh和oh-my-zsh， 这里改成默认用zsh，并加入zsh的kubectl插件，完善自动补全功能
+
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": [
 		"npm i -g zx", // 谷歌出的一个用js写shell脚本的小工具
