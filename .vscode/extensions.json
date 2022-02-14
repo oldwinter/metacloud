@@ -6,17 +6,12 @@
         "shd101wyy.markdown-preview-enhanced",
         "davidanson.vscode-markdownlint",
         "ms-azuretools.vscode-docker",
-        "ms-vsliveshare.vsliveshare",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
         "redhat.vscode-yaml",
         "mindaro.mindaro",
         "alefragnani.bookmarks",
         "github.codespaces",
-        "github.copilot",
         "github.remotehub",
         "github.github-vscode-theme",
-        "tabnine.tabnine-vscode",
-        "visualstudioexptteam.vscodeintellicode",
         "alefragnani.Bookmarks"
     ]
 }

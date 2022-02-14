@@ -149,7 +149,7 @@ zx cluster-oper.mjs --create
 
 ## 3.1 vscode数据流
 
-![系统架构图](http://qmplusimg.henrongyi.top/gva/gin-vue-admin.png)
+![系统架构图](https://github.com/oldwinter/my-pics/blob/master/%E6%88%AA%E5%B1%8F2022-02-14%2010.17.39.png)
 
 ## 3.2 系统架构图
 

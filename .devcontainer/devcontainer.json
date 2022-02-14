@@ -2,13 +2,14 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.217.1/containers/ubuntu
 {
 	"name": "Ubuntu",
-	"build": {
-		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
-		// Use hirsute or bionic on local arm64/Apple Silicon.
-		"args": { "VARIANT": "focal" }
-	},
-	// "runArgs": ["--init","--network=host"],
+	"image": "cdd2hw/metacloud:ubuntu-minikube-214",
+	// "build": {
+	// 	"dockerfile": "Dockerfile",
+	// 	// Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
+	// 	// Use hirsute or bionic on local arm64/Apple Silicon.
+	// 	"args": { "VARIANT": "focal" }
+	// },
+	"runArgs": ["--init","--privileged"],
 	// "dockerComposeFile": "../docker-compose.yaml",
 	// "service": "devmaster",
 	"workspaceFolder": "/workspaces/MetaCloud",
@@ -40,7 +41,8 @@
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	// "forwardPorts": []、
+	】=‘【p0;lo9AZ 
 
 
 	// 官方镜像自带 zsh和oh-my-zsh， 这里改成默认用zsh，并加入zsh的kubectl插件，完善自动补全功能
@@ -52,30 +54,30 @@
 	// 	"npm i -g http-server"  //临时起一个简单web-server的小工具
 
 	// ],
-	"postCreateCommand": "minikube start &&  npm i -g http-server && npm i -g zx" ,
-	"postStartCommand": "minikube start" ,
+	// "postCreateCommand": "minikube start &&  npm i -g http-server && npm i -g zx" ,
+	// "postStartCommand": "bash /usr/local/share/docker-init.sh && minikube start" ,
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode",
+	"remoteUser": "root",
 
 	// feature模式其实就是微软封装的dockerfile里面执行的library-scripts脚本，如果安装失败，可以考虑换成脚本，并改动dockerfile
 	// https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/kubectl-helm.md
-	"features": {
-		// from模式，在容器中使用的实际上是宿主机docker
-		// "docker-from-docker": "latest", 
-		// 
-		// docker in docker 需要宿主机的CPU MEM更多
-		"docker-in-docker": {
-			"version": "latest",
-			"moby": true
-		},
-		"kubectl-helm-minikube": {
-			"version": "latest",
-			"helm": "latest",
-			"minikube": "latest"
-		},
-		"node": "lts"
+	// "features": {
+	// 	// from模式，在容器中使用的实际上是宿主机docker
+	// 	// "docker-from-docker": "latest", 
+	// 	// 
+	// 	// docker in docker 需要宿主机的CPU MEM更多
+	// 	"docker-in-docker": {
+	// 		"version": "latest",
+	// 		"moby": true
+	// 	},
+	// 	"kubectl-helm-minikube": {
+	// 		"version": "latest",
+	// 		"helm": "latest",
+	// 		"minikube": "latest"
+	// 	},
+	// 	"node": "lts"
 
-	}
+	// }
 
 	// 以下地址被屏蔽，故需要科学上网,pac设置不一定包含，所以暂时先改成全局代理
 	// k8s官方镜像地址：k8s.gcr.io/
