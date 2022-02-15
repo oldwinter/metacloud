@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portal
+  labels:
+    app: portal
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portal
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: portal
+        version: v1
+    spec:
+      containers:
+      - name: forecast
+        image: portal:{{ .Chart.AppVersion }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-gin
+  labels:
+    app: server-gin
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-gin
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: server-gin
+        version: v1
+    spec:
+      containers:
+      - name: forecast
+        image: server-gin:{{ .Chart.AppVersion }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8001
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-toy
+  labels:
+    app: server-toy
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-toy
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: server-toy
+        version: v1
+    spec:
+      containers:
+      - name: forecast
+        image: server-toy:{{ .Chart.AppVersion }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8002
+---
+

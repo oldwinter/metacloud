@@ -6,3 +6,5 @@
 /portal/dist
 
 # 后端相关
+
+deploy/helm/metacloud-workflow/.helmignore

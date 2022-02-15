@@ -22,7 +22,7 @@
 ## 1.1 项目介绍
 
 > MetaCloud，是工具，也是方法论：
-> 作为工具，它教你只通过 VSCode + docker + cloud，无痛地开发一切。
+> 作为工具，它只通过 VSCode + docker + minikube，将一台计算机，衍生出无数的独立开发环境。
 > 作为方法论，它将开源社区「最新的思想」和「最热的项目」，融合到工具中，且所见即所得。
 
 ## 1.2 项目文档
@@ -210,9 +210,10 @@ zx cluster-oper.mjs --create
   1. 用 [docker](https:www.docker.com) 进行微服务container化封装
   2. 用 [kubernetes](https://kubernetes.io/) 进行container集群化部署
   3. 用 [istio](https://istio.io) 进行集群服务网格化治理
-  4. 用 [helm] 进行
+  4. 用 [helm](https://helm.sh/) 进行k8s 资源的包管理和部署
 - 构建脚本：
-  1. 尝试不用bash，改用现在很火的 [zx](https://github.com/google/zx) ，进行全过程脚本编写。
+  1. 尝试不用bash，改用现在很火的 [zx](https://github.com/google/zx) ，进行脚本编写。
+  2. 尝试用[devspace](https://github.com/loft-sh/devspace) 快速调试微服务
 
 ---
 
@@ -220,4 +221,8 @@ zx cluster-oper.mjs --create
 
 - [x] 完成最小可行性版本，串通全流程
 - [ ] 编写详细文档，阐述设计理念
+- [ ] 尝试用 knative 实现 serverless
+- [ ] 体验openyurt的边缘治理能力
 - [ ] 完全上云版本，支持生产可用
+- [ ] 践行云原生的工具栈和技术栈的融合思考
+
