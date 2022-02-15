@@ -4,5 +4,37 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+    "settings": {
+	},
+	"extensions": {
+        "recommendations": [
+            "mhutchie.git-graph",
+            "gruntfuggly.todo-tree",
+            "eamodio.gitlens",
+            "shd101wyy.markdown-preview-enhanced",
+            "davidanson.vscode-markdownlint",
+            "ms-azuretools.vscode-docker",
+            "ms-vsliveshare.vsliveshare",
+            "ms-kubernetes-tools.vscode-kubernetes-tools",
+            "redhat.vscode-yaml",
+            "mindaro.mindaro",
+            "alefragnani.bookmarks",
+            "github.codespaces",
+            "github.copilot",
+            "github.remotehub",
+            "github.github-vscode-theme",
+            "tabnine.tabnine-vscode",
+            "visualstudioexptteam.vscodeintellicode",
+            "uctakeoff.vscode-counter"
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [],
+        "compounds": []
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": []
+    }
 }

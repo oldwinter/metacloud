@@ -8,7 +8,9 @@
 		// Use hirsute or bionic on local arm64/Apple Silicon.
 		"args": { "VARIANT": "focal" }
 	},
+	// --init 参数会在start container时,进行类似垃圾进程清理的动作; --privileged 参数会让container获得更高的系统级权限
 	"runArgs": ["--init"],
+
 	// "dockerComposeFile": "../docker-compose.yaml",
 	// "service": "devmaster",
 	"workspaceFolder": "/workspaces/MetaCloud",
@@ -16,29 +18,16 @@
 	// admin container关闭vscode窗口不自动stop, 因为里面还有各种资源, restart耗时过长. 
 	"shutdownAction": "none",
 	// Set *default* container specific settings.json values on container create.
-	"settings": {},
+	"settings": {
+		
+	},
 
 	// 个人开发必用插件
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		// "mhutchie.git-graph",
-        // "gruntfuggly.todo-tree",
-        // "wayou.vscode-todo-highlight",
-        // "eamodio.gitlens",
-        // "shd101wyy.markdown-preview-enhanced",
-        // "davidanson.vscode-markdownlint",
-        // "ms-azuretools.vscode-docker",
-        // "ms-vsliveshare.vsliveshare",
-        // // "ms-kubernetes-tools.vscode-kubernetes-tools",
-        // "redhat.vscode-yaml",
-        // "mindaro.mindaro",
-        // // "alefragnani.bookmarks",
-        // "github.codespaces",
-        // "github.copilot",
-        // "github.remotehub",
-        // "github.github-vscode-theme",
-        // // "tabnine.tabnine-vscode",
-        // "VisualStudioExptTeam.vscodeintellicode"
+		"ms-azuretools.vscode-docker",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"redhat.vscode-yaml"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -61,7 +50,7 @@
 	// 此处调用,会导致start失败,原因待分析,先采取手动start的方式
 	// "postStartCommand": "minikube start" ,
 
-	
+
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
 
