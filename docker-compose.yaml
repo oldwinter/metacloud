@@ -3,7 +3,7 @@
 # 更推荐方案1, 更符合 [1个vscode窗口=1个开发环境≈开发一个微服务] 的场景, 使用起来更清晰 ; 
 # 方案2也可,嵌套层级比较深,看个人习惯.
 
-#安装vscode docker插件,以获取语法自动提出和补全功能
+#安装vscode docker插件,以获取语法自动提示和补全功能
 version: "3"
 
 # networks:
@@ -34,7 +34,7 @@ services:
       # Mount the root folder that contains .git 到 容器内的/workspaces目录
       # 若要在container中执行docker-compose命令，前者得写主机的路径，不能写当年container的路径，有点绕，
       # TODO，想办法改良，或者在宿主机执行docker-compose命令
-      # - /Users/cdd/Works/code/MetaCloud:/workspaces:cached
+      # - /Users/cdd/Works/code/metacloud:/workspaces:cached
       - .:/workspaces:cached
     ports:
       - '8000:8000'

@@ -8,6 +8,7 @@
 # 后端相关
 
 # 临时
+kind
 deploy/helm/metacloud-workflow/.helmignore
 server/gin/server
 server/gin/xx

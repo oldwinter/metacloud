@@ -2,21 +2,22 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.217.1/containers/ubuntu
 {
 	"name": "Ubuntu",
-	"build": {
-		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
-		// Use hirsute or bionic on local arm64/Apple Silicon.
-		"args": { "VARIANT": "focal" }
-	},
+	// "build": {
+	// 	"dockerfile": "Dockerfile",
+	// 	// Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
+	// 	// Use hirsute or bionic on local arm64/Apple Silicon.
+	// 	"args": { "VARIANT": "focal" }
+	// },
+	"image": "cdd2hw/metacloud:ubuntu-dind-minikube-216",
 	// --init 参数会在start container时,进行类似垃圾进程清理的动作; --privileged 参数会让container获得更高的系统级权限
 	"runArgs": ["--init"],
 
 	// "dockerComposeFile": "../docker-compose.yaml",
 	// "service": "devmaster",
-	"workspaceFolder": "/workspaces/MetaCloud",
+	"workspaceFolder": "/workspaces/metacloud",
 
-	// admin container关闭vscode窗口不自动stop, 因为里面还有各种资源, restart耗时过长. 
-	"shutdownAction": "none",
+	// 暂定此处admin container关闭vscode窗口不自动stop, 因为里面还有各种运行时的资源, restart耗时较长,10秒左右. 
+	"shutdownAction": "stopContainer",
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		
@@ -27,7 +28,16 @@
 	"extensions": [
 		"ms-azuretools.vscode-docker",
 		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"redhat.vscode-yaml"
+		"redhat.vscode-yaml",
+		"VisualStudioExptTeam.vscodeintellicode",
+		"uctakeoff.vscode-counter",
+		"humao.rest-client",
+		"DavidAnson.vscode-markdownlint",
+		"shd101wyy.markdown-preview-enhanced",
+		"oderwat.indent-rainbow",
+		"mhutchie.git-graph",
+		"donjayamanne.githistory",
+		"eamodio.gitlens"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

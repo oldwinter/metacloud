@@ -5,7 +5,7 @@
   </a>
 </p>
 
-<h1 align="center">MetaCloud</h1>
+<h1 align="center">metacloud</h1>
 
 <div align="center">
     <img src="https://img.shields.io/badge/golang-1.16-blue"/>
@@ -21,7 +21,7 @@
 
 ## 1.1 项目介绍
 
-> MetaCloud，是工具，也是方法论：
+> metacloud，是工具，也是方法论：
 > 作为工具，它只通过 VSCode + docker + minikube，将一台计算机，衍生出无数的独立开发环境。
 > 作为方法论，它将开源社区「最新的思想」和「最热的项目」，融合到工具中，且所见即所得。
 
@@ -61,11 +61,10 @@ TODO
 服务器：安装 Docker + 科学上网
 ``` -->
 
-
-
 ## 2.2 环境构建
 
 > 若确实没有科学上网的条件，可以直接使用我已经构建好的镜像，但其更新滞后于根目录的.devcontaier配置。
+
 ```bash
 docker pull 
 ```
@@ -77,7 +76,7 @@ docker pull
 **shift+ctrl+`** 打开VSCode 内置 Terminal，
 
 ```bash
-git clone https://github.com/oldwinter/MetaCloud.git
+git clone https://github.com/oldwinter/metacloud.git
 ```
 
 `shift+cmd+p` 打开 VSCode 命令控制台,输入 `reopen in container`，进行开发container环境启动。第一次需要构建，取决于你的网络和机器性能，耗时分钟级，此后秒级启动。
@@ -183,9 +182,8 @@ zx cluster-oper.mjs --create
 
 ### 为何只使用 VSCode 完成？
 
-- 原生支持 devops in container
-- 免费、轻量、好用
-- 用户量第一，版本周更新
+- 原生支持 devops in container, 力度极大
+- 免费、轻量、好用. 用户量第一，版本周更新
 - 插件机制，满足你的一切幻想
 
 ### 为何完全在 docker 中开发？
@@ -205,7 +203,7 @@ zx cluster-oper.mjs --create
   1. 用 [kong](https://konghq.com) 作为微服务网关
   2. 用 [Gin](https://gin-gonic.com/) 快速搭建基础 restful 风格 API，它是一个 [Go](https://go.dev) 语言编写的 Web 框架
   3. 用 [Python](https://www.python.org) 玩各种新技术的 demo
-  4. 用 [Mysql] 
+  4. 用 [Mysql]
 - 运维&云原生：
   1. 用 [docker](https:www.docker.com) 进行微服务container化封装
   2. 用 [kubernetes](https://kubernetes.io/) 进行container集群化部署
@@ -225,4 +223,3 @@ zx cluster-oper.mjs --create
 - [ ] 体验openyurt的边缘治理能力
 - [ ] 完全上云版本，支持生产可用
 - [ ] 践行云原生的工具栈和技术栈的融合思考
-
