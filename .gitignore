@@ -1,15 +1,13 @@
-# mac相关
-.DS_Store
-
 # 前端相关
 /portal/node_modules
 /portal/dist
 
 # 后端相关
 
+istio*
+
 # 临时
 kind
 deploy/helm/metacloud-workflow/.helmignore
-server/gin/server
-server/gin/xx
-server/gin/xx1
+.DS_Store
+nohup.out

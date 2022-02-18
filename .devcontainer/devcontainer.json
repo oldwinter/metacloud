@@ -29,15 +29,14 @@
 		"ms-azuretools.vscode-docker",
 		"ms-kubernetes-tools.vscode-kubernetes-tools",
 		"redhat.vscode-yaml",
-		"VisualStudioExptTeam.vscodeintellicode",
 		"uctakeoff.vscode-counter",
-		"humao.rest-client",
 		"DavidAnson.vscode-markdownlint",
 		"shd101wyy.markdown-preview-enhanced",
 		"oderwat.indent-rainbow",
 		"mhutchie.git-graph",
 		"donjayamanne.githistory",
-		"eamodio.gitlens"
+		"eamodio.gitlens",
+		"mindaro.mindaro"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -48,11 +47,11 @@
 
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": [
-	// 	"npm i -g zx", 			// 谷歌出的一个用js写shell脚本的小工具
-	// 	"npm i -g http-server"  //临时起一个简单web-server的小工具
-
-	// ],
+	"postCreateCommand": [
+		"npm i -g zx", 			// 谷歌出的一个用js写shell脚本的小工具
+		"npm i -g http-server",  //临时起一个简单web-server的小工具
+		"curl -L https://istio.io/downloadIstio | sh - && cd istio-1.13.0 && export PATH=$PWD/bin:$PATH"
+	],
 	// "postCreateCommand": "npm i -g http-server && npm i -g zx" ,
 	
 	// "postCreateCommand": "sudo bash /usr/local/share/docker-init.sh && sleep 5 && minikube start &&  npm i -g http-server && npm i -g zx" ,
