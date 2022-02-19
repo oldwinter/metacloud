@@ -12,7 +12,7 @@ microservice:
     image: portal
     version: v1
     port: 8000
-    type: NodePort
+    type: ClusterIP
   server_gin:
     image: server-gin
     version : v1
@@ -22,6 +22,10 @@ microservice:
     image: server-toy
     version: v1
     port: 8002
+    type: ClusterIP
+  meta_redis:
+    type: ClusterIP
+  meta_mysql:
     type: ClusterIP
 nodeSelector: {}
 
