@@ -1,0 +1,26 @@
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/deployment-v1/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-toy
+  labels:
+    app: server-toy
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-toy
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: server-toy
+        version: v1
+    spec:
+      containers:
+      - name: forecast
+        image: server-toy:01
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
