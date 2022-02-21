@@ -23,20 +23,34 @@
         "wayou.vscode-todo-highlight",
         "eamodio.gitlens",
         "shd101wyy.markdown-preview-enhanced",
-        "DavidAnson.vscode-markdownlint"
+        "davidanson.vscode-markdownlint",
+        "ms-azuretools.vscode-docker",
+        "ms-vsliveshare.vsliveshare",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml",
+        "mindaro.mindaro",
+        "alefragnani.bookmarks",
+        "github.codespaces",
+        "github.copilot",
+        "github.remotehub",
+        "github.github-vscode-theme",
+        "tabnine.tabnine-vscode",
+        "VisualStudioExptTeam.vscodeintellicode"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sleep infinity",
+	"postCreateCommand": [
+		"npm i -g zx", // 谷歌出的一个用js写shell脚本的小工具
+		"npm i -g http-server"  //临时起一个简单web-server的小工具
+	],
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "root",
 	"features": {
-		"docker-from-docker": "20.10", // docker in docker必装
-		// "kubectl-helm-minikube": "1.22",
-		// "homebrew": "latest"
+		"docker-from-docker": "20.10", // from模式，在容器中使用的实际上是宿主机docker
+		// docker in docker 需要宿主机的CPU MEM更多
 	}
 }
