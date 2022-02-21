@@ -12,7 +12,7 @@
 	},
 	// "dockerComposeFile": ".../docker-compose.yaml",
 	// "service": "server-toy",
-	"workspaceFolder": "/workspaces/MetaCloud/server/toy",
+	"workspaceFolder": "/workspaces/metacloud/server/toy",
 	"shutdownAction": "none",
 
 

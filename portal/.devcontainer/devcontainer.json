@@ -11,7 +11,7 @@
 	},
 
 	// Open the sub-folder with the source code
-	"workspaceFolder": "/workspaces/MetaCloud/portal",
+	"workspaceFolder": "/workspaces/metacloud/portal",
 
 	// vscode窗口关闭就stop 这个devcontainer
 	"shutdownAction": "stopContainer",
@@ -24,10 +24,10 @@
 	],
 	// 将来自本机的请求(一般是浏览器)，转发至portal 的 devcontaiern的指定端口
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8001,8004],
+	// "forwardPorts": [8001,8004],
 
 
-	// 这2 个设置配套使用,指定转发规则自动生成的触发器
+	// 这 2 个设置配套使用,指定转发规则自动生成的触发器
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
 	"portsAttributes": {
 		"8000": {
