@@ -65,7 +65,13 @@ TODO
 
 ## 2.2 环境构建
 
-本机打开一个 VSCode 窗口，此处将其命名为admin-code
+> 若确实没有科学上网的条件，可以直接使用我已经构建好的镜像，但其更新滞后于根目录的.devcontaier配置。
+```bash
+docker pull 
+```
+
+若科学上网正常：
+本机打开一个 VSCode 窗口，此处设其名为admin-code
 <!-- 如果是远程开发，这里需要多执行一步：
 `shift+cmd+p` 打开 VSCode 命令控制台,输入 `connect current window to host`，根据提示，远程连接至你已经装好docker的服务器。 -->
 **shift+ctrl+`** 打开VSCode 内置 Terminal，
@@ -84,7 +90,7 @@ git clone https://github.com/oldwinter/MetaCloud.git
 
 ### 2.3.1 纯前端开发
 
-本机新开一个 VSCode 窗口，此处将其命名为portal-code
+本机新开一个 VSCode 窗口，此处设其名为portal-code
 `shift+cmd+p` 打开 VSCode 命令控制台,输入 `open folder in container`，选择根目录下的 portal 目录。这里同样要构建一个用于前端开发独享的开发container，故第一次需要构建。
 
 此后，你的这个portal-code窗口，就是一个完全独立的前端开发环境。
@@ -122,8 +128,8 @@ docker compose up -f docker-compose.yaml
 
 - 安装 kubernetes
 - 安装 istio
-以上两步，图形界面以外的操作，全部在你admin-code窗口中实现即可。
-参考[本机安装 k8s 和 istio](https://github.com/AliyunContainerService/k8s-for-docker-desktop)
+以上两步，图形界面以外的操作，全部在你admin-code窗口中实现即可。k8s有kind，minikube，docker desktop方案，都可。
+可参考[本机安装 k8s 和 istio](https://github.com/AliyunContainerService/k8s-for-docker-desktop)
 
 安装完成后：
 找到admin-code窗口
@@ -204,6 +210,7 @@ zx cluster-oper.mjs --create
   1. 用 [docker](https:www.docker.com) 进行微服务container化封装
   2. 用 [kubernetes](https://kubernetes.io/) 进行container集群化部署
   3. 用 [istio](https://istio.io) 进行集群服务网格化治理
+  4. 用 [helm] 进行
 - 构建脚本：
   1. 尝试不用bash，改用现在很火的 [zx](https://github.com/google/zx) ，进行全过程脚本编写。
 
