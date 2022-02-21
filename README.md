@@ -1,7 +1,6 @@
 <p align="center">
   <a href="https://ant.design">
-     <!-- TODO -->
-    <img width="200" src="./docs/1024x1024.png">
+    <img width="200" src="https://github.com/oldwinter/my-pics/blob/master/1024x1024.png">
   </a>
 </p>
 
@@ -15,7 +14,7 @@
 
 ---
 
-[English](./README-en.md) | 简体中文
+<!-- [English](./README-en.md) | 简体中文 -->
 
 # 1. 基本介绍
 
