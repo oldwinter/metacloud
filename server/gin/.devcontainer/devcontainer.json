@@ -13,6 +13,10 @@
 			"NODE_VERSION": "lts/*"
 		}
 	},
+	// "dockerComposeFile": "../../docker-compose.yaml",
+	// "service": "server-gin",
+	"workspaceFolder": "/workspaces/MetaCloud/server/gin",
+	"shutdownAction": "none",
 	"runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
 
 	// Set *default* container specific settings.json values on container create.
@@ -49,11 +53,6 @@
 
 	// Uncomment to connect as a non-root user. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "root",
-	"service": "server-gin",
-	// 确保vscode窗口关闭时，容器不会退出
-	"shutdownAction": "none",
-	// Open the sub-folder with the source code
-	"workspaceFolder": "/workspaces/MetaCLoud/server/gin",
 
 
 }

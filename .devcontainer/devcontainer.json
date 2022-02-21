@@ -8,7 +8,10 @@
 		// Use hirsute or bionic on local arm64/Apple Silicon.
 		"args": { "VARIANT": "focal" }
 	},
-
+	// "dockerComposeFile": "../docker-compose.yaml",
+	// "service": "devmaster",
+	"workspaceFolder": "/workspaces/MetaCloud",
+	// "shutdownAction": "stopCompose",
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
 
@@ -27,7 +30,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
+	"postCreateCommand": "sleep infinity",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "root",

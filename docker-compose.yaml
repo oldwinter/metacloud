@@ -8,15 +8,28 @@ networks:
         - subnet: '192.168.0.0/16'
 
 services:
+  # devmaster:
+  #   build:
+  #     context: ./
+  #     dockerfile: .devcontainer/Dockerfile
+  #     args: { "VARIANT": "focal" }
+  #   container_name: meta-devmaster
+  #   restart: always
+  #   volumes:
+  #     - .:/workspaces:cached
   portal:
     build:
       context: ./portal
       dockerfile: .devcontainer/Dockerfile
+      args: { "VARIANT": "17.4.0-bullseye" }
     container_name: meta-portal
     restart: always
-    # volumes:
-      # Mount the root folder that contains .git
-      # - .:/Users/cdd/Works/code/MetaCloud:cached
+    volumes:
+      # Mount the root folder that contains .git 到 容器内的/workspaces目录
+      # 若要在container中执行docker-compose命令，前者得写主机的路径，不能写当年container的路径，有点绕，
+      # TODO，想办法改良，或者在宿主机执行docker-compose命令
+      # - /Users/cdd/Works/code/MetaCloud:/workspaces:cached
+      - .:/workspaces:cached
     ports:
       - '8080:8080'
     # depends_on:
@@ -31,11 +44,12 @@ services:
     build:
       context: ./server/gin
       dockerfile: .devcontainer/Dockerfile
+      args: {"VARIANT": "1.17-bullseye","NODE_VERSION": "lts/*"}
     container_name: meta-server-gin
     restart: always
-    # volumes:
+    volumes:
       # Mount the root folder that contains .git
-      # - .:/workspaces:cached
+      - .:/workspaces:cached
     ports:
       - '8001:8001'
     depends_on:
@@ -52,11 +66,12 @@ services:
     build:
       context: ./server/toy
       dockerfile: .devcontainer/Dockerfile
+      args: { "VARIANT": "3.9-bullseye","NODE_VERSION": "lts/*"}
     container_name: meta-server-toy
     restart: always
-    # volumes:
+    volumes:
       # Mount the root folder that contains .git
-      # - .:/workspaces:cached
+      - .:/workspaces:cached
     ports:
       - '8002:8002'
     command: [ 'sleep','infinity' ]
