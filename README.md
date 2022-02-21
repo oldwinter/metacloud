@@ -62,42 +62,23 @@ TODO
 ## 2.2 环境构建
 
 ```bash
-docker pull oldwinter/uni-tools
-docker exec -it oldwinter/uni-tools: zsh
-
+# pull打包了各种好用工具的「瑞士军刀」镜像，其dockerfile位于uni-tools中
+docker pull oldwinter/uni-tools:latest
+# 启动并进入uni-tool容器
+docker run -it -v /home:/home oldwinter/uni-tools zsh
+# 根据提示，初始化项目，主要git clone， devcontainer build
 npm init metacloud
 
 ```
 
-
-<!-- > 若确实没有科学上网的条件，可以直接使用我已经构建好的镜像，但其更新滞后于根目录的.devcontaier配置。 -->
-
-```bash
-docker pull 
-```
-
-若科学上网正常：
-本机打开一个 VSCode 窗口，此处设其名为admin-code
-<!-- 如果是远程开发，这里需要多执行一步：
-`shift+cmd+p` 打开 VSCode 命令控制台,输入 `connect current window to host`，根据提示，远程连接至你已经装好docker的服务器。 -->
-**shift+ctrl+`** 打开VSCode 内置 Terminal，
-
-```bash
-git clone https://github.com/oldwinter/metacloud.git
-```
-
-`shift+cmd+p` 打开 VSCode 命令控制台,输入 `reopen in container`，进行开发container环境启动。第一次需要构建，取决于你的网络和机器性能，耗时分钟级，此后秒级启动。
-
-此后，你的这个VSCode窗口，就是一个和你本机无关的独立开发环境，尽情造作放肆吧。
-
 ## 2.3 启动开发
 
-接下来分为 3 类，按需选择 1 种即可。
+接下来分为 3 类，根据在上一步做的选择，按需选择 1 种继续操作。
 
 ### 2.3.1 纯前端开发
 
-本机新开一个 VSCode 窗口，此处设其名为portal-code
-`shift+cmd+p` 打开 VSCode 命令控制台,输入 `open folder in container`，选择根目录下的 portal 目录。这里同样要构建一个用于前端开发独享的开发container，故第一次需要构建。
+本机开一个 VSCode 窗口，此处设其名为portal-code
+`shift+cmd+p` 打开 VSCode 命令控制台,输入 `open folder in container`，选择根目录下的 portal 目录。
 
 此后，你的这个portal-code窗口，就是一个完全独立的前端开发环境。
 
@@ -113,7 +94,7 @@ npm run dev
 
 ### 2.3.2 全栈开发
 
-找到admin-code窗口
+本机开一个 VSCode 窗口，此处设其名为admin-code
 
 **shift+ctrl+`** 打开VSCode VSCode 内置 Terminal，
 
@@ -128,34 +109,29 @@ docker compose up -f docker-compose.yaml
 
 ### 2.3.3 运维开发
 
-以本机部署为例（理论上至少需要 8GB 以上内存）：
-
-- 安装 kubernetes
-- 安装 istio
-以上两步，图形界面以外的操作，全部在你admin-code窗口中实现即可。k8s有kind，minikube，docker desktop方案，都可。
-可参考[本机安装 k8s 和 istio](https://github.com/AliyunContainerService/k8s-for-docker-desktop)
-
-安装完成后：
-找到admin-code窗口
+本机开一个 VSCode 窗口，此处设其名为admin-code
 **shift+ctrl+`** 打开VSCode 内置 Terminal，
 
 ```bash
-# 构建 微服务镜像
-zx docker-build.mjs --local
+# 初始化安装开发环境
+zx devops/scripts/install.mjs
+
+# 构建 全部微服务镜像
+zx devops/scripts/build.mjs --local
 
 # 为k8s集群创建各类资源
-zx cluster-oper.mjs --create
+zx devops/scripts/deploy.mjs
 ```
 
 ---
 
 # 3. 整体架构
 
-## 3.1 vscode数据流
+## 3.1 vscode + devcontainer架构图
 
 ![系统架构图](http://qmplusimg.henrongyi.top/gva/gin-vue-admin.png)
 
-## 3.2 系统架构图
+## 3.2 微服务系统架构图
 
 ![系统架构图](http://qmplusimg.henrongyi.top/gva/gin-vue-admin.png)
 
@@ -175,7 +151,7 @@ zx cluster-oper.mjs --create
 - 修改devcontainer文件夹，定制团队一致的开发环境
 - 在本机，用iTerm2，批量连接所有开发环境
 - 在线打开github直接开始开发
-- 直接连接至k8s的pod进行开发
+- 直接连接至生产环境的k8s中的pod进行debug
 - 在已有集群中，快速创建一个新的微服务
 - 将现有业务，快速适配融合至本项目
   
@@ -203,20 +179,22 @@ zx cluster-oper.mjs --create
 
 ## 5.2 具体开源技术选型
 
-- 前端：用基于 [Vue](https://vuejs.org) 的 [Element Plus](https://github.com/element-plus/element-plus) 构建基础页面
+- 前端：
+  1. 基于 [Vue](https://vuejs.org)
+  2. 使用组件库 [Element Plus](https://github.com/element-plus/element-plus) 构建基础页面
 - 后端：拆分若干个微服务：
-  1. 用 [kong](https://konghq.com) 作为微服务网关
+  1. 用 [traefik](https://github.com/traefik/traefik) 作为微服务网关
   2. 用 [Gin](https://gin-gonic.com/) 快速搭建基础 restful 风格 API，它是一个 [Go](https://go.dev) 语言编写的 Web 框架
   3. 用 [Python](https://www.python.org) 玩各种新技术的 demo
-  4. 用 [Mysql]
+  4. 用 [Mysql](https://www.mysql.com/) 和 [Redis](https://redis.io/) 作为数据库中间件
 - 运维&云原生：
   1. 用 [docker](https:www.docker.com) 进行微服务container化封装
   2. 用 [kubernetes](https://kubernetes.io/) 进行container集群化部署
   3. 用 [istio](https://istio.io) 进行集群服务网格化治理
-  4. 用 [helm](https://helm.sh/) 进行k8s 资源的包管理和部署
+  4. 用 [helm](https://helm.sh/) 进行 k8s 资源的包管理和部署，[docker-compose](https://docs.docker.com/compose/)仅在开发阶段使用
 - 构建脚本：
   1. 尝试不用bash，改用现在很火的 [zx](https://github.com/google/zx) ，进行脚本编写。
-  2. 尝试用[devspace](https://github.com/loft-sh/devspace) 快速调试微服务
+  
 
 ---
 
