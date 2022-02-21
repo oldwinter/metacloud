@@ -180,13 +180,13 @@ zx cluster-oper.mjs --create
 
 ## 5.1 为什么只用 VSCode + docker
 
-### 为何只使用 VSCode 完成？
+### 5.1.1 为什么是 VSCode
 
 - 原生支持 devops in container, 力度极大
-- 免费、轻量、好用. 用户量第一，版本周更新
-- 插件机制，满足你的一切幻想
+- 开源、免费、轻量、好用. 用户量第一，版本周更
+- 插件机制，满足你的一切幻想，开发者的第二个操作系统
 
-### 为何完全在 docker 中开发？
+### 5.1.2 为什么是 docker
 
 - 基础架构即代码，和环境问题说byebye
 - cloud native，从Coding阶段抓起

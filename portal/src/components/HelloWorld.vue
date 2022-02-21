@@ -1,67 +1,40 @@
-<script setup>
-import { ref } from 'vue'
-const value = ref(new Date())
-defineProps({
-  msg: String
-})
-
-const count = ref(0)
+<script setup lang="ts">
+defineProps<{
+  msg: string
+}>()
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-   <el-button type="primary">Primary</el-button>
-  <p>
-    Recommended IDE setup:
-    <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
-    +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-  </p>
-
-  <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">
-      Vite Documentation
-    </a>
-    |
-    <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Documentation</a>
-  </p>
-
-  <button type="button" @click="count++">count is: {{ count }}</button>
-  <p>
-    Edit
-    <code>components/HelloWorld.vue</code> to test hot module replacement.
-  </p>
-
-<el-calendar v-model="value" />
-
-<el-carousel indicator-position="outside">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
-    </el-carousel-item>
-  </el-carousel>
-
+  <div class="greetings">
+    <h1 class="green">{{ msg }}</h1>
+    <h3>
+      You’ve successfully created a project with
+      <a target="_blank" href="https://vitejs.dev/">Vite</a> +
+      <a target="_blank" href="https://vuejs.org/">Vue 3</a>. What's next?
+    </h3>
+  </div>
 </template>
 
 <style scoped>
-a {
-  color: #42b983;
+h1 {
+  font-weight: 500;
+  font-size: 2.6rem;
+  top: -10px;
 }
 
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 18px;
-  opacity: 0.75;
-  line-height: 300px;
-  margin: 0;
+h3 {
+  font-size: 1.2rem;
+}
+
+.greetings h1,
+.greetings h3 {
   text-align: center;
 }
 
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
+@media (min-width: 1024px) {
+  .greetings h1,
+  .greetings h3 {
+    text-align: left;
+  }
 }
 </style>
-

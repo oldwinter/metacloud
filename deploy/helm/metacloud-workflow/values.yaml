@@ -4,14 +4,23 @@
 
 replicaCount: 1
 
-server:
+registry:
+  addr: localhost:5000   # ends with no /
+
+microservice:
   portal: 
+    image: portal
+    version: v1
     port: 8000
     type: NodePort
-  server-gin:
+  server_gin:
+    image: server-gin
+    version : v1
     port: 8001
     type: ClusterIP
-  server-toy:
+  server_toy:
+    image: server-toy
+    version: v1
     port: 8002
     type: ClusterIP
 nodeSelector: {}
