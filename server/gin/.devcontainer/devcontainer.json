@@ -48,5 +48,12 @@
 	// "postCreateCommand": "go version",
 
 	// Uncomment to connect as a non-root user. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "root"
+	"remoteUser": "root",
+	"service": "server-gin",
+	// 确保vscode窗口关闭时，容器不会退出
+	"shutdownAction": "none",
+	// Open the sub-folder with the source code
+	"workspaceFolder": "/workspaces/MetaCLoud/server/gin",
+
+
 }
