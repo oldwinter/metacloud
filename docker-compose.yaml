@@ -31,11 +31,17 @@ services:
       # - /Users/cdd/Works/code/MetaCloud:/workspaces:cached
       - .:/workspaces:cached
     ports:
-      - '8080:8080'
+      - '8000:8000'
     # depends_on:
     #   - apig
     # command: [ 'nginx-debug', '-g', 'daemon off;' ]
-    command: [ 'sleep','infinity' ]
+    # command: [ 'sleep','infinity' ]
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npm i
+        npm run dev
     networks:
       network:
         ipv4_address: 192.168.0.31
@@ -58,7 +64,13 @@ services:
     links:
       - mysql
       - redis
-    command: [ 'sleep','infinity' ]
+    # command: [ 'sleep','infinity' ]
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        go build server.go 
+        ./server
     networks:
       network:
         ipv4_address: 192.168.0.32
@@ -74,7 +86,13 @@ services:
       - .:/workspaces:cached
     ports:
       - '8002:8002'
-    command: [ 'sleep','infinity' ]
+    # command: [ 'sleep','infinity' ]
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        pip3 install -r requirements.txt
+        python app.py
     networks:
       network:
         ipv4_address: 192.168.0.33

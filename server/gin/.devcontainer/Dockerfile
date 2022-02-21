@@ -22,3 +22,4 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c ". /usr/local/share/nv
 #     && go mod tidy \
 #     && go build -o server .
 # CMD ["./server"]
+WORKDIR /workspaces/server/gin

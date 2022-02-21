@@ -190,6 +190,8 @@ kubectl get pod
   1. 用 [docker](https:www.docker.com) 进行微服务容器化封装
   2. 用 [kubernetes](https://kubernetes.io/) 进行容器集群化部署
   3. 用 [istio](https://istio.io) 进行集群服务网格化治理
+- 构建脚本：
+  1. 尝试不用bash，改用现在很火的 [zx](https://github.com/google/zx) ，进行全过程脚本编写。
 
 ---
 # 5. 将来也许
