@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "boxen": "^6.2.1",
+    "chalk": "^5.0.0",
+    "clear": "^0.1.0",
+    "figlet": "^1.5.2",
+    "ora": "^6.0.1",
+    "prompts": "^2.4.2"
+  },
+  "name": "create-metacloud",
+  "version": "1.0.6",
+  "main": "index.js",
+  "bin": {
+    "mc": "out.cjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.22",
+    "zx": "^4.3.0"
+  },
+  "scripts": {
+    "dev": "npm run build && node out.cjs",
+    "build": "zx scripts/build.mjs"
+  },
+  "author": "oldwinter",
+  "license": "ISC",
+  "description": ""
+}
