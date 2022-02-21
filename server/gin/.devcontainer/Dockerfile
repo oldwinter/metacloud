@@ -16,3 +16,9 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c ". /usr/local/share/nv
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+RUN go env -w GOPROXY=https://goproxy.cn,direct \
+    && go env -w CGO_ENABLED=0 \
+    && ls -al \
+    && go mod tidy \
+    && go build -o server .
+CMD ["./server"]

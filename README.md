@@ -45,15 +45,25 @@
 
 ## 2.1 软件安装
 
+接下来分为 2 类，按需选择 1 种即可。
+### 2.1.1 本机开发
 ```text
-VSCode（Remote-Containers 插件） + Docker + 科学上网
+本机：安装 VSCode（Remote-Containers 插件） + Docker + 科学上网
+```
+### 2.1.2 远程开发
+```text
+本机：安装 VSCode（Remote-SSH 插件）
+服务器：安装 Docker + 科学上网
 ```
 
 ---
 
 ## 2.2 环境构建
 
-打开 VSCode，**shift+ctrl+`** 打开VSCode 内置 Terminal，
+本机打开 VSCode ，如果是远程开发，这里需要多执行一步：
+`shift+cmd+p` 打开 VSCode 命令控制台,输入 `connect current window to host`，根据提示，远程连接至你已经装好docker的服务器。
+
+**shift+ctrl+`** 打开VSCode 内置 Terminal，
 
 ```bash
 git clone https://github.com/oldwinter/MetaCloud.git
@@ -64,20 +74,18 @@ git clone https://github.com/oldwinter/MetaCloud.git
 ## 2.3 启动开发
 
 接下来分为 3 类，按需选择 1 种即可。
-< todo: 搞定 docker in docker>
 
 ### 2.3.1 纯前端开发
 
 `shift+cmd+p` 打开 VSCode 命令控制台,输入 `reopen folder in container`，进行开发容器环境启动，选择根目录下的 portal 目录。这里同样要构建一个用于前端开发独享的开发容器，故第一次需要构建。
 
-`cmd+\`  打开 VSCode，
-
+**shift+ctrl+`** 打开VSCode 内置 Terminal，
 ```bash
 # 安装依赖
-npm install
+npm i
 
 # 启动 portal 开发
-npm run dev
+npm run  dev
 ```
 
 ### 2.3.2 全栈开发
@@ -111,7 +119,11 @@ kubectl get pod
 
 # 3. 整体架构
 
-## 3.1 架构图
+## 3.1 vscode数据流
+
+![系统架构图](http://qmplusimg.henrongyi.top/gva/gin-vue-admin.png)
+
+## 3.2 系统架构图
 
 ![系统架构图](http://qmplusimg.henrongyi.top/gva/gin-vue-admin.png)
 
