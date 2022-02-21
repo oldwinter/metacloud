@@ -1,49 +1,30 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.195.0/containers/javascript-node
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.217.4/containers/ubuntu
 {
-	"name": "Portal",
+	"name": "Ubuntu Portal",
 	"build": {
 		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick a Node version: 16, 14, 12.
-		// Append -bullseye or -buster to pin to an OS version.
-		// Use -bullseye variants on local arm64/Apple Silicon.
-		"args": { "VARIANT": "17.4.0-bullseye" }
+		// Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
+		// Use hirsute or bionic on local arm64/Apple Silicon.
+		"args": { "VARIANT": "focal" }
 	},
 
-	// Open the sub-folder with the source code
-	"workspaceFolder": "/workspaces/metacloud/portal",
-
-	// vscode窗口关闭就stop 这个devcontainer
-	"shutdownAction": "stopContainer",
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
 
+
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"dbaeumer.vscode-eslint"
-	],
-	// 将来自本机的请求(一般是浏览器)，转发至portal 的 devcontaiern的指定端口
+	"extensions": [],
+
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [8001,8004],
-
-
-	// 这 2 个设置配套使用,指定转发规则自动生成的触发器
-	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
-	"portsAttributes": {
-		"8000": {
-			"label": "Hello Remote World",
-			"onAutoForward": "notify"
-		}
-	},
-
-	// Use 'otherPortsAttributes' to configure any ports that aren't configured using 'portsAttributes'.
-	"otherPortsAttributes": {
-			"onAutoForward": "openBrowser"
-	},
+	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "",
+	// "postCreateCommand": "uname -a",
 
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "root"
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode",
+	"features": {
+		"node": "lts"
+	}
 }

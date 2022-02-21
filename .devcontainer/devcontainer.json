@@ -2,13 +2,13 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.217.1/containers/ubuntu
 {
 	"name": "Ubuntu",
-	// "build": {
-	// 	"dockerfile": "Dockerfile",
-	// 	// Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
-	// 	// Use hirsute or bionic on local arm64/Apple Silicon.
-	// 	"args": { "VARIANT": "focal" }
-	// },
-	"image": "cdd2hw/metacloud:ubuntu-dind-minikube-216",
+	"build": {
+		"dockerfile": "Dockerfile",
+		// Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
+		// Use hirsute or bionic on local arm64/Apple Silicon.
+		"args": { "VARIANT": "focal" }
+	},
+	// "image": "cdd2hw/metacloud:ubuntu-dind-minikube-216",
 	// --init 参数会在start container时,进行类似垃圾进程清理的动作; --privileged 参数会让container获得更高的系统级权限
 	"runArgs": ["--init"],
 
@@ -53,7 +53,7 @@
 	// 	"npm i -g http-server"  //临时起一个简单web-server的小工具
 
 	// ],
-	"postCreateCommand": "npm i -g http-server && npm i -g zx" ,
+	// "postCreateCommand": "npm i -g http-server && npm i -g zx" ,
 	
 	// "postCreateCommand": "sudo bash /usr/local/share/docker-init.sh && sleep 5 && minikube start &&  npm i -g http-server && npm i -g zx" ,
 	
