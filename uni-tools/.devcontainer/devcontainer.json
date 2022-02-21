@@ -1,0 +1,12 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.217.1/containers/ubuntu
+{
+	"name": "meta-devtools",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	// 直接使用已经构建好的镜像
+	// "image": "cdd2hw/meta-devtools:latest",
+	"runArgs": ["--init"],
+	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ]
+}

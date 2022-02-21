@@ -8,7 +8,9 @@
 		// Use hirsute or bionic on local arm64/Apple Silicon.
 		"args": { "VARIANT": "focal" }
 	},
+	// 直接使用已经构建好的镜像
 	// "image": "cdd2hw/metacloud:ubuntu-dind-minikube-216",
+
 	// --init 参数会在start container时,进行类似垃圾进程清理的动作; --privileged 参数会让container获得更高的系统级权限
 	"runArgs": ["--init"],
 
@@ -43,35 +45,28 @@
 	// "forwardPorts": [],
 
 
-	// 官方镜像自带 zsh和oh-my-zsh， 这里改成默认用zsh，并加入zsh的kubectl插件，完善自动补全功能
-
-
+	// TODO 官方镜像自带 zsh和oh-my-zsh， 这里改成默认用zsh，并加入zsh的kubectl插件，完善自动补全功能
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": [
 		"npm i -g zx", 			// 谷歌出的一个用js写shell脚本的小工具
 		"npm i -g http-server",  //临时起一个简单web-server的小工具
-		"curl -L https://istio.io/downloadIstio | sh - && cd istio-1.13.0 && export PATH=$PWD/bin:$PATH"
+		"curl -L https://istio.io/downloadIstio | sh - && cd istio-1.13.0 && export PATH=$PWD/bin:$PATH" //安装istioctl工具
 	],
-	// "postCreateCommand": "npm i -g http-server && npm i -g zx" ,
 	
 	// "postCreateCommand": "sudo bash /usr/local/share/docker-init.sh && sleep 5 && minikube start &&  npm i -g http-server && npm i -g zx" ,
 	
 	// 此处调用,会导致start失败,原因待分析,先采取手动start的方式
 	// "postStartCommand": "minikube start" ,
 
-
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
 
-
-
-	
 	// feature模式其实就是微软封装的dockerfile里面执行的library-scripts脚本，如果安装失败，可以考虑换成脚本，并改动dockerfile
 	// https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/kubectl-helm.md
 	"features": {
 		// from模式，在容器中使用的实际上是宿主机docker
 		// "docker-from-docker": "latest", 
-		// 
+
 		// docker in docker 需要宿主机的CPU MEM更多
 		"docker-in-docker": {
 			"version": "latest",
@@ -85,10 +80,7 @@
 		"node": "lts"
 
 	}
-
 	// 以下地址被屏蔽，故需要科学上网,pac设置不一定包含，所以暂时先改成全局代理
 	// k8s官方镜像地址：k8s.gcr.io/
 	// 微软的devcontainer基础镜像：mcr.microsoft.com/
-
-	
 }

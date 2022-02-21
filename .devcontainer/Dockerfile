@@ -9,10 +9,10 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 # COPY library-scripts/kubectl-helm-debian.sh /tmp/library-scripts/
 
-## kubectl,helm,minikube 脚本
+## kubectl,helm,minikube feature实际使用的脚本
 # RUN apt-get update && bash /tmp/library-scripts/kubectl-helm-debian.sh latest latest latest
 
-## docker in docker 脚本
+## docker in docker feature实际使用的脚本
 # COPY library-scripts/*.sh /tmp/library-scripts/
 
 # ENV DOCKER_BUILDKIT=1
@@ -20,9 +20,3 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 # ENTRYPOINT ["/usr/local/share/docker-init.sh"]
 # VOLUME [ "/var/lib/docker" ]
 # CMD ["sleep", "infinity"]
-
-
-
-# COPY library-scripts/*.sh /tmp/library-scripts/
-
-# RUN bash /tmp/library-scripts/intall.sh

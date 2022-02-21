@@ -1,0 +1,1 @@
+// 这个脚本用来自动发布包到npm，homebrew，docker等平台

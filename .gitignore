@@ -6,9 +6,12 @@
 
 istio*
 
+.devcontaier/library-scripts/
+
 # 
 kind
 deploy/helm/metacloud-workflow/.helmignore
 .DS_Store
 nohup.out
 README-en.md
+temp.md

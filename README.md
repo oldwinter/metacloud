@@ -49,20 +49,28 @@ TODO
 
 ### 2.1.1 本机开发
 
-```text
-本机：安装 VSCode（Remote-Containers 插件） + Docker + 科学上网
-```
+本机安装 [VSCode](https://code.visualstudio.com/download)（Remote-Containers 插件） + [Docker](https://www.docker.com/get-started) + 科学上网
+
 <!-- 
 ### 2.1.2 远程开发
 
 ```text
-本机：安装 VSCode（Remote-SSH 插件）
+本机：安装 VSCode（Remote-SSH 和 Remote-Containers 插件）
 服务器：安装 Docker + 科学上网
 ``` -->
 
 ## 2.2 环境构建
 
-> 若确实没有科学上网的条件，可以直接使用我已经构建好的镜像，但其更新滞后于根目录的.devcontaier配置。
+```bash
+docker pull oldwinter/uni-tools
+docker exec -it oldwinter/uni-tools: zsh
+
+npm init metacloud
+
+```
+
+
+<!-- > 若确实没有科学上网的条件，可以直接使用我已经构建好的镜像，但其更新滞后于根目录的.devcontaier配置。 -->
 
 ```bash
 docker pull 
@@ -116,9 +124,7 @@ docker compose up -f docker-compose.yaml
 
 **shift+cmd+p** 打开 VSCode 命令控制台,输入 attach to running container，按需选择待开发的微服务即可。
 
-这时候你应该已经能明显体会到：
-
-**一个VSCode窗口 ＝ 一个开发环境**
+这时候你应该已经能明显体会到： **一个VSCode窗口 ＝ 一个开发环境**
 
 ### 2.3.3 运维开发
 

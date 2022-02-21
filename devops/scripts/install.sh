@@ -51,6 +51,6 @@ nohup kubectl port-forward --namespace kube-system service/registry 5000:80 >/de
 zx docker-build.mjs --repo localhost --port 5000 --version v1
 
 # helm里面的镜像地址改成localhost:5000/{name}:{tag}
-helm install -f deploy/helm/metacloud-workflow/values.yaml  metacloud-stack deploy/helm/metacloud-workflow/
+helm install -f devops/helm/metacloud-workflow/values.yaml  metacloud-stack devops/helm/metacloud-workflow/
 
 
