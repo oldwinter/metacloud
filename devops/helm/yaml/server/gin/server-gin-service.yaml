@@ -1,0 +1,18 @@
+# https://kubernetes.io/docs/reference/kubernetes-api/service-resources/
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-gin
+  labels:
+    app: server-gin
+    version: v1
+spec:
+  # type: NodePort
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8001
+      targetPort: 8001
+  selector:
+    app: server-gin
+    version: v1

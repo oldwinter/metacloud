@@ -1,0 +1,87 @@
+# 1,在 docker in docker 方案下. 在本机运行,则若干个 devcontainer,运行在主机上
+# 2,在 docker in docker 方案下, 在admin的devcontainer中运行,则若干个devcontainer,运行在docker内
+# 更推荐方案1, 更符合 [1个vscode窗口=1个开发环境≈开发一个微服务] 的场景, 使用起来更清晰 ; 
+# 方案2也可,嵌套层级比较深,看个人习惯.
+
+#安装vscode docker插件,以获取语法自动提示和补全功能
+version: "3"
+services:
+  portal:
+    build:
+      context: ./portal
+      dockerfile: .devcontainer/Dockerfile
+      args: { "VARIANT": "17.4.0-bullseye" }
+    container_name: meta-portal
+    restart: always
+    volumes:
+      # Mount the root folder that contains .git 到 容器内的/workspaces目录
+      # 若要在container中执行docker-compose命令，前者得写主机的路径，不能写当年container的路径，有点绕，
+      # TODO，想办法改良，或者在宿主机执行docker-compose命令
+      # - /Users/cdd/Works/code/metacloud:/workspaces:cached
+      - .:/workspaces:cached
+    ports:
+      - '8000:8000'
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npm i
+        npm run dev
+
+  server-gin:
+    build:
+      context: ./server/gin
+      dockerfile: .devcontainer/Dockerfile
+      args: {"VARIANT": "1.17-bullseye","NODE_VERSION": "lts/*"}
+    container_name: meta-server-gin
+    restart: always
+    volumes:
+      - .:/workspaces:cached
+    ports:
+      - '8001:8001'
+    depends_on:
+      - mysql
+      - redis
+    links:
+      - mysql
+      - redis
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        go build server.go 
+        ./server
+  server-toy:
+    build:
+      context: ./server/toy
+      dockerfile: .devcontainer/Dockerfile
+      args: { "VARIANT": "3.9-bullseye","NODE_VERSION": "lts/*"}
+    container_name: meta-server-toy
+    restart: always
+    volumes:
+      # Mount the root folder that contains .git
+      - .:/workspaces:cached
+    ports:
+      - '8002:8002'
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        pip3 install -r requirements.txt
+        python app.py
+  mysql:
+    image: mysql:8.0
+    container_name: meta-mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
+    restart: always
+    ports:
+      - "3306:3306"  # host物理直接映射端口为13306
+    environment:
+      MYSQL_DATABASE: 'MCdev' # 初始化启动时要创建的数据库的名称
+      MYSQL_ROOT_PASSWORD: 'mc@123' # root管理员用户密码
+  redis:
+    image: redis:7.0-rc-bullseye
+    container_name: meta-redis 
+    restart: always
+    ports:
+      - '6379:6379'

@@ -1,0 +1,31 @@
+# Default values for metacloud-workflow.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+registry:
+  addr: localhost:5000   # ends with no /
+
+microservice:
+  portal: 
+    image: portal
+    version: v1
+    port: 8000
+    type: ClusterIP
+  server_gin:
+    image: server-gin
+    version : v1
+    port: 8001
+    type: ClusterIP
+  server_toy:
+    image: server-toy
+    version: v1
+    port: 8002
+    type: ClusterIP
+  meta_redis:
+    type: ClusterIP
+  meta_mysql:
+    type: ClusterIP
+nodeSelector: {}
+

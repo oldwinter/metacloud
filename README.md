@@ -1,203 +1,230 @@
-<div align=center>
-<img src="https://img.shields.io/badge/golang-1.16-blue"/>
-<img src="https://img.shields.io/badge/gin-1.6.3-lightBlue"/>
-<img src="https://img.shields.io/badge/vue-3.0.0-brightgreen"/>
-<img src="https://img.shields.io/badge/element--plus-1.1.0beta8-green"/>
-<img src="https://img.shields.io/badge/gorm-1.20.7-red"/>
+<p align="center">
+  <a href="https://ant.design">
+    <img width="200" src="https://github.com/oldwinter/my-pics/blob/master/1024x1024.png">
+  </a>
+</p>
+
+<h1 align="center">metacloud</h1>
+
+<div align="center">
+    <img src="https://img.shields.io/badge/golang-1.16-blue"/>
 </div>
 
-[English](./README-en.md) | 简体中文
+<!-- TODO: -->
 
-# 项目文档
-[在线文档](https://doc.oldwinter.com) : https://doc.oldwinter.com
+---
 
-## 1. 基本介绍
+<!-- [English](./README-en.md) | 简体中文 -->
 
-### 1.1 项目介绍
+# 1. 基本介绍
 
-> MetaCloud复杂又简单：基于 [vue](https://vuejs.org) 和 [gin](https://gin-gonic.com) 开发的全栈前后端分离的开发基础平台。
-> 平台采用 [docker](https:www.docker.com) 进行微服务容器化封装，采用 [kubernetes](https://kubernetes.com) 进行容器集群化部署，
-> 平台采用 [istio]() 进行集群服务网格化治理
+## 1.1 项目介绍
 
-[在线预览](https://demo.oldwinter.com): https://demo.oldwinter.com
+> metacloud，是工具，也是方法论：
+> 作为工具，它只通过 VSCode + docker + minikube，将一台计算机，衍生出无数的独立开发环境。
+> 作为方法论，它将开源社区「最新的思想」和「最热的项目」，融合到工具中，且所见即所得。
 
-测试用户名：admin 测试密码：123456
+## 1.2 项目文档
 
-## 2. 使用说明
+<!-- [在线文档](https://doc.oldwinter.com) : <https://doc.oldwinter.com> -->
+TODO
 
-```
-开发配置：VSCode + Docker 。真正DevOps with Docker
-```
-# 安装软件
-安装vscode 编辑器 Remote-Containers插件
-安装docker 
+## 1.3 项目预览
 
-# 拉取docker官方镜像并运行
+[在线预览](https://demo.oldwinter.com): <https://demo.oldwinter.com>
 
-打开MetaCloud.code-workspace工作空间
+<!-- ![系统架构图](http://.png) -->
+
+## 1.4 项目特点
+
+- 面向开源社区开发：不造轮子，全部基于开源项目缝合，且只选最新、最酷、最热门的项目
+- 面向云原生开发：要实现cloud native，先实现contaier native，顺便完成service mesh和devops
+- 背对云平台开发：使用云却不被任何云绑定，万花丛中过，片叶不沾身
+
+---
+
+# 2. 快速开始
+
+## 2.1 软件安装
+
+### 2.1.1 本机开发
+
+本机安装 [VSCode](https://code.visualstudio.com/download)（Remote-Containers 插件） + [Docker](https://www.docker.com/get-started) + 科学上网
+
+<!-- 
+### 2.1.2 远程开发
+
+```text
+本机：安装 VSCode（Remote-SSH 和 Remote-Containers 插件）
+服务器：安装 Docker + 科学上网
+``` -->
+
+## 2.2 环境构建
 
 ```bash
-docker pull node:12.22.10-bullseye
-docker pull golang:1.18-rc-bullseye
+docker pull oldwinter/uni-tools
+docker exec -it oldwinter/uni-tools: zsh
 
-docker run -d node:12.22.10-bullseye sleep infinity
-docker run -d golang:1.18-rc-bullseye sleep infinity
+npm init metacloud
+
 ```
 
-# VSCode attach to 运行中的容器
-打开VScode编辑器，cmd+P 输入 >attachToRunningContainer,选中需要开发代码的容器。等待执行完成后。
 
-### 2.1 前端portal工程
-打开前端server工程的vscode窗口，并打开其内置terminal
+<!-- > 若确实没有科学上网的条件，可以直接使用我已经构建好的镜像，但其更新滞后于根目录的.devcontaier配置。 -->
 
 ```bash
-git clone https://github.com/oldwinter/MetaCloud.git
+docker pull 
+```
 
-# 进入portal文件夹
-cd portal
+若科学上网正常：
+本机打开一个 VSCode 窗口，此处设其名为admin-code
+<!-- 如果是远程开发，这里需要多执行一步：
+`shift+cmd+p` 打开 VSCode 命令控制台,输入 `connect current window to host`，根据提示，远程连接至你已经装好docker的服务器。 -->
+**shift+ctrl+`** 打开VSCode 内置 Terminal，
 
+```bash
+git clone https://github.com/oldwinter/metacloud.git
+```
+
+`shift+cmd+p` 打开 VSCode 命令控制台,输入 `reopen in container`，进行开发container环境启动。第一次需要构建，取决于你的网络和机器性能，耗时分钟级，此后秒级启动。
+
+此后，你的这个VSCode窗口，就是一个和你本机无关的独立开发环境，尽情造作放肆吧。
+
+## 2.3 启动开发
+
+接下来分为 3 类，按需选择 1 种即可。
+
+### 2.3.1 纯前端开发
+
+本机新开一个 VSCode 窗口，此处设其名为portal-code
+`shift+cmd+p` 打开 VSCode 命令控制台,输入 `open folder in container`，选择根目录下的 portal 目录。这里同样要构建一个用于前端开发独享的开发container，故第一次需要构建。
+
+此后，你的这个portal-code窗口，就是一个完全独立的前端开发环境。
+
+**shift+ctrl+`** 打开VSCode 内置 Terminal，
+
+```bash
 # 安装依赖
-npm install
+npm i
 
-# 启动portal项目
-npm run serve
+# 启动 portal 开发
+npm run dev
 ```
-### 2.2 后端server工程
-打开后端server工程的vscode窗口，并打开其内置terminal
+
+### 2.3.2 全栈开发
+
+找到admin-code窗口
+
+**shift+ctrl+`** 打开VSCode VSCode 内置 Terminal，
 
 ```bash
-git clone https://github.com/oldwinter/MetaCloud.git
-# 进入server文件夹
-cd server
-
-# 使用 go mod 并安装go依赖包
-go generate
-
-# 编译 
-go build -o server main.go (windows编译命令为go build -o server.exe main.go )
-
-# 运行二进制
-./server (windows运行命令为 server.exe)
+//启动全部 dev container（默认启动container中的进程），第一次构建分钟级耗时
+docker compose up -f docker-compose.yaml
 ```
 
+**shift+cmd+p** 打开 VSCode 命令控制台,输入 attach to running container，按需选择待开发的微服务即可。
 
-### 2.3 swagger自动化API文档
+这时候你应该已经能明显体会到： **一个VSCode窗口 ＝ 一个开发环境**
 
-#### 2.3.1 安装 swagger
+### 2.3.3 运维开发
 
-##### （1）可以访问外国网站
+以本机部署为例（理论上至少需要 8GB 以上内存）：
 
-````
-go get -u github.com/swaggo/swag/cmd/swag
-````
+- 安装 kubernetes
+- 安装 istio
+以上两步，图形界面以外的操作，全部在你admin-code窗口中实现即可。k8s有kind，minikube，docker desktop方案，都可。
+可参考[本机安装 k8s 和 istio](https://github.com/AliyunContainerService/k8s-for-docker-desktop)
 
-##### （2）无法访问外国网站
-
-由于国内没法安装 go.org/x 包下面的东西，推荐使用 [goproxy.cn](https://goproxy.cn) 或者 [goproxy.io](https://goproxy.io/zh/)
+安装完成后：
+找到admin-code窗口
+**shift+ctrl+`** 打开VSCode 内置 Terminal，
 
 ```bash
-# 如果您使用的 Go 版本是 1.13 - 1.15 需要手动设置GO111MODULE=on, 开启方式如下命令, 如果你的 Go 版本 是 1.16 ~ 最新版 可以忽略以下步骤一
-# 步骤一、启用 Go Modules 功能
-go env -w GO111MODULE=on 
-# 步骤二、配置 GOPROXY 环境变量
-go env -w GOPROXY=https://goproxy.cn,https://goproxy.io,direct
+# 构建 微服务镜像
+zx docker-build.mjs --local
 
-# 如果嫌弃麻烦,可以使用go generate 编译前自动执行代码, 不过这个不能使用 `Goland` 或者 `Vscode` 的 命令行终端
-cd server
-go generate -run "go env -w .*?"
-
-# 使用如下命令下载swag
-go get -u github.com/swaggo/swag/cmd/swag
+# 为k8s集群创建各类资源
+zx cluster-oper.mjs --create
 ```
 
-#### 2.3.2 生成API文档
+---
 
-```` shell
-cd server
-swag init
-````
+# 3. 整体架构
 
-> 执行上面的命令后，server目录下会出现docs文件夹里的 `docs.go`, `swagger.json`, `swagger.yaml` 三个文件更新，启动go服务之后, 在浏览器输入 [http://localhost:8888/swagger/index.html](http://localhost:8888/swagger/index.html) 即可查看swagger文档
-
-
-## 3. 技术选型
-
-- 前端：用基于 [Vue](https://vuejs.org) 的 [Element](https://github.com/ElemeFE/element) 构建基础页面。
-- 后端：用 [Gin](https://gin-gonic.com/) 快速搭建基础restful风格API，[Gin](https://gin-gonic.com/) 是一个go语言编写的Web框架。
-- 数据库：采用`MySql`(5.6.44)版本，使用 [gorm](http://gorm.cn) 实现对数据库的基本操作。
-- 缓存：使用`Redis`实现记录当前活跃用户的`jwt`令牌并实现多点登录限制。
-- API文档：使用`Swagger`构建自动化文档。
-- 配置文件：使用 [fsnotify](https://github.com/fsnotify/fsnotify) 和 [viper](https://github.com/spf13/viper) 实现`yaml`格式的配置文件。
-- 日志：使用 [zap](https://github.com/uber-go/zap) 实现日志记录。
-
-## 4. 项目架构
-
-### 4.1 系统架构图
+## 3.1 vscode数据流
 
 ![系统架构图](http://qmplusimg.henrongyi.top/gva/gin-vue-admin.png)
 
-### 4.2 目录结构
+## 3.2 系统架构图
 
-```
+![系统架构图](http://qmplusimg.henrongyi.top/gva/gin-vue-admin.png)
+
+## 3.3 目录结构
+
+```bash
     ├── server
-        ├── api             (api层)
-        │   └── v1          (v1版本接口)
-        ├── config          (配置包)
-        ├── core            (核心文件)
-        ├── docs            (swagger文档目录)
-        ├── global          (全局对象)                    
-        ├── initialize      (初始化)                        
-        │   └── internal    (初始化内部函数)                            
-        ├── middleware      (中间件层)                        
-        ├── model           (模型层)                    
-        │   ├── request     (入参结构体)                        
-        │   └── response    (出参结构体)                            
-        ├── packfile        (静态文件打包)                        
-        ├── resource        (静态资源文件夹)                        
-        │   ├── excel       (excel导入导出默认路径)                        
-        │   ├── page        (表单生成器)                        
-        │   └── template    (模板)                            
-        ├── router          (路由层)                    
-        ├── service         (service层)                    
-        ├── source          (source层)                    
-        └── utils           (工具包)                    
-            ├── timer       (定时器接口封装)                        
-            └── upload      (oss接口封装)                        
-    
-    └─web            （前端文件）
-        ├─public        （发布模板）
-        └─src           （源码包）
-            ├─api       （向后台发送ajax的封装层）
-            ├─assets	（静态文件）
-            ├─components（组件）
-            ├─router	（前端路由）
-            ├─store     （vuex 状态管理仓）
-            ├─style     （通用样式文件）
-            ├─utils     （前端工具库）
-            └─view      （前端页面）
+        ├── api             (api 层）
+        │   └── v1          (v1 版本接口）
 
 ```
 
-# 基本介绍
+---
 
-包含部分：
-- 基于开源，实现编程自由
-- 通过软件，实现
-- 通过阅读，
-- 通过电影，实现
-- 编程云原生，人生云原生
-- 10年双拼使用经验
+# 4. 进阶玩法
 
-纷杂程序世界里，一个就够了。
+- 修改devcontainer文件夹，定制团队一致的开发环境
+- 在本机，用iTerm2，批量连接所有开发环境
+- 在线打开github直接开始开发
+- 直接连接至k8s的pod进行开发
+- 在已有集群中，快速创建一个新的微服务
+- 将现有业务，快速适配融合至本项目
+  
+---
 
-如何自己从0到1，搭建出自己的。
-1，始于开源，忠于开源。
-项目中全部的东西，均来源于开源。
-2，
+# 5. 技术选择
 
-每一块积木，都是，我会基于这几点分析：为什么是它？
-它的优势是什么？
-劣势
+## 5.1 为什么只用 VSCode + docker
 
-会定时刷新最近的技术栈，
+### 5.1.1 为什么是 VSCode
 
+- 原生支持 devops in container, 力度极大
+- 开源、免费、轻量、好用. 用户量第一，版本周更
+- 插件机制，满足你的一切幻想，开发者的第二个操作系统
+
+### 5.1.2 为什么是 docker
+
+- 基础架构即代码，和环境问题说byebye
+- cloud native，从Coding阶段抓起
+- 微服务化，devops，无痛上云，docker全搞定
+  
+### 有什么劣势？
+
+- 没有劣势，这就是未来🐯
+
+## 5.2 具体开源技术选型
+
+- 前端：用基于 [Vue](https://vuejs.org) 的 [Element Plus](https://github.com/element-plus/element-plus) 构建基础页面
+- 后端：拆分若干个微服务：
+  1. 用 [kong](https://konghq.com) 作为微服务网关
+  2. 用 [Gin](https://gin-gonic.com/) 快速搭建基础 restful 风格 API，它是一个 [Go](https://go.dev) 语言编写的 Web 框架
+  3. 用 [Python](https://www.python.org) 玩各种新技术的 demo
+  4. 用 [Mysql]
+- 运维&云原生：
+  1. 用 [docker](https:www.docker.com) 进行微服务container化封装
+  2. 用 [kubernetes](https://kubernetes.io/) 进行container集群化部署
+  3. 用 [istio](https://istio.io) 进行集群服务网格化治理
+  4. 用 [helm](https://helm.sh/) 进行k8s 资源的包管理和部署
+- 构建脚本：
+  1. 尝试不用bash，改用现在很火的 [zx](https://github.com/google/zx) ，进行脚本编写。
+  2. 尝试用[devspace](https://github.com/loft-sh/devspace) 快速调试微服务
+
+---
+
+# 5. 将来也许
+
+- [x] 完成最小可行性版本，串通全流程
+- [ ] 编写详细文档，阐述设计理念
+- [ ] 尝试用 knative 实现 serverless
+- [ ] 体验openyurt的边缘治理能力
+- [ ] 完全上云版本，支持生产可用
+- [ ] 践行云原生的工具栈和技术栈的融合思考
