@@ -8,11 +8,13 @@
 		// Use hirsute or bionic on local arm64/Apple Silicon.
 		"args": { "VARIANT": "focal" }
 	},
-	// "runArgs": ["--init","--network=host"],
+	"runArgs": ["--init"],
 	// "dockerComposeFile": "../docker-compose.yaml",
 	// "service": "devmaster",
 	"workspaceFolder": "/workspaces/MetaCloud",
-	// "shutdownAction": "stopCompose",
+
+	// admin container关闭vscode窗口不自动stop, 因为里面还有各种资源, restart耗时过长. 
+	"shutdownAction": "none",
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
 
@@ -52,11 +54,20 @@
 	// 	"npm i -g http-server"  //临时起一个简单web-server的小工具
 
 	// ],
-	"postCreateCommand": "minikube start &&  npm i -g http-server && npm i -g zx" ,
-	"postStartCommand": "minikube start" ,
+	"postCreateCommand": "npm i -g http-server && npm i -g zx" ,
+	
+	// "postCreateCommand": "sudo bash /usr/local/share/docker-init.sh && sleep 5 && minikube start &&  npm i -g http-server && npm i -g zx" ,
+	
+	// 此处调用,会导致start失败,原因待分析,先采取手动start的方式
+	// "postStartCommand": "minikube start" ,
+
+	
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
 
+
+
+	
 	// feature模式其实就是微软封装的dockerfile里面执行的library-scripts脚本，如果安装失败，可以考虑换成脚本，并改动dockerfile
 	// https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/kubectl-helm.md
 	"features": {

@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.195.0/containers/javascript-node
 {
-	"name": "Node.js",
+	"name": "Portal",
 	"build": {
 		"dockerfile": "Dockerfile",
 		// Update 'VARIANT' to pick a Node version: 16, 14, 12.
@@ -9,12 +9,12 @@
 		// Use -bullseye variants on local arm64/Apple Silicon.
 		"args": { "VARIANT": "17.4.0-bullseye" }
 	},
-	// "dockerComposeFile": "../docker-compose.yaml",
-	// "service": "portal",
 
 	// Open the sub-folder with the source code
 	"workspaceFolder": "/workspaces/MetaCloud/portal",
-	"shutdownAction": "none",
+
+	// vscode窗口关闭就stop 这个devcontainer
+	"shutdownAction": "stopContainer",
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
 
@@ -22,10 +22,12 @@
 	"extensions": [
 		"dbaeumer.vscode-eslint"
 	],
-// 将本机请求，转发至远程机器的8000端口
+	// 将来自本机的请求(一般是浏览器)，转发至portal 的 devcontaiern的指定端口
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8000],
+	"forwardPorts": [8001,8004],
 
+
+	// 这2 个设置配套使用,指定转发规则自动生成的触发器
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
 	"portsAttributes": {
 		"8000": {
@@ -35,9 +37,9 @@
 	},
 
 	// Use 'otherPortsAttributes' to configure any ports that aren't configured using 'portsAttributes'.
-	// "otherPortsAttributes": {
-	// 		"onAutoForward": "silent"
-	// },
+	"otherPortsAttributes": {
+			"onAutoForward": "openBrowser"
+	},
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "",

@@ -1,11 +1,17 @@
+# 1,在 docker in docker 方案下. 在本机运行,则若干个 devcontainer,运行在主机上
+# 2,在 docker in docker 方案下, 在admin的devcontainer中运行,则若干个devcontainer,运行在docker内
+# 更推荐方案1, 更符合 [1个vscode窗口=1个开发环境≈开发一个微服务] 的场景, 使用起来更清晰 ; 
+# 方案2也可,嵌套层级比较深,看个人习惯.
+
+#安装vscode docker插件,以获取语法自动提出和补全功能
 version: "3"
 
-networks:
-  network:
-    ipam:
-      driver: default
-      config:
-        - subnet: '192.168.0.0/16'
+# networks:
+#   network:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: '192.168.0.0/16'
 
 services:
   # devmaster:
@@ -42,9 +48,9 @@ services:
       - |
         npm i
         npm run dev
-    networks:
-      network:
-        ipv4_address: 192.168.0.31
+    # networks:
+    #   network:
+    #     ipv4_address: 192.168.0.31
 
   server-gin:
     build:
@@ -58,6 +64,7 @@ services:
       - .:/workspaces:cached
     ports:
       - '8001:8001'
+      - '8011:8011'
     depends_on:
       - mysql
       - redis
@@ -71,9 +78,9 @@ services:
       - |
         go build server.go 
         ./server
-    networks:
-      network:
-        ipv4_address: 192.168.0.32
+    # networks:
+    #   network:
+    #     ipv4_address: 192.168.0.32
   server-toy:
     build:
       context: ./server/toy
@@ -93,9 +100,9 @@ services:
       - |
         pip3 install -r requirements.txt
         python app.py
-    networks:
-      network:
-        ipv4_address: 192.168.0.33
+    # networks:
+    #   network:
+    #     ipv4_address: 192.168.0.33
   mysql:
     image: mysql:8.0
     container_name: meta-mysql
@@ -106,9 +113,9 @@ services:
     environment:
       MYSQL_DATABASE: 'MCdev' # 初始化启动时要创建的数据库的名称
       MYSQL_ROOT_PASSWORD: 'mc@123' # root管理员用户密码
-    networks:
-      network:
-        ipv4_address: 192.168.0.254
+    # networks:
+    #   network:
+    #     ipv4_address: 192.168.0.254
   # apig:
   #   image: kong:2.7.1-ubuntu
   #   container_name: meta-server-apig
@@ -127,6 +134,6 @@ services:
     restart: always
     ports:
       - '16379:6379'
-    networks:
-      network:
-        ipv4_address: 192.168.0.255
+    # networks:
+    #   network:
+    #     ipv4_address: 192.168.0.255
