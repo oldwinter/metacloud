@@ -163,7 +163,7 @@ zx cluster-oper.mjs --create
 # 4. 进阶玩法
 
 - 修改devcontainer文件夹，定制团队一致的开发环境
-- 在本机，用自己喜欢的terminal软件，批量连接所有开发环境
+- 在本机，用iTerm2，批量连接所有开发环境
 - 在线打开github直接开始开发
 - 直接连接至k8s的pod进行开发
 - 在已有集群中，快速创建一个新的微服务
