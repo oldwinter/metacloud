@@ -1,17 +1,3 @@
-# 前端相关
-/portal/node_modules
-/portal/dist
-
-# 后端相关
-
-istio*
-
-.devcontaier/library-scripts/
-
 # 
-kind
-deploy/helm/metacloud-workflow/.helmignore
+.pnpm-store
 .DS_Store
-nohup.out
-README-en.md
-temp.md

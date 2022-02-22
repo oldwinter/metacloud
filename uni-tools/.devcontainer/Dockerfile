@@ -22,7 +22,7 @@ RUN apt-get update  \
     sudo curl git zsh \
     tree wget vim tldr \
     speedtest-cli \
-    net-tools iputils-ping \
+    net-tools iputils-ping iptables \
     # nodejs的东西维护在自己的仓库里，这里官方脚本规定死了17+版本，以后记得手动改
     && curl -fsSL https://deb.nodesource.com/setup_17.x | bash - \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends  nodejs \
@@ -47,18 +47,8 @@ RUN bash install-scripts/install-ohmyzsh.sh
 RUN bash install-scripts/install-docker.sh
 
 ### 👇🏻homebrew 官方只支持非root 用户安装，速度很慢，装完后超过500MB占用，考虑不装它，这里用清华的镜像站
-# fzf: 找文件神器
-# thefuck：自动纠错上条命令并执行 
-# kubectl：先装上再说，永远会有k8s集群待你去连接
-# kubectx: 切换集群和namespace，多集群管理好用得飞起
-RUN bash install-scripts/install-homebrew.sh
+# RUN bash install-scripts/install-homebrew.sh
     
-RUN brew install fzf \
-    && brew  install thefuck \
-    && brew  install kubectl \
-    && brew  install kubectx \
-    && brew cleanup
-
 VOLUME [ "/data" ]
 
 SHELL [ "zsh" ]

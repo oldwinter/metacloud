@@ -3,9 +3,10 @@
 # docker run -it --privileged -u 1000  f5d bash
 # /usr/local/share/docker-init.sh
 
+# process.env.WORKSPACE_DIR = ""
+
 # 安装minikube集群
 minikube start \
---cpus 4 \
 # --memory 6g \ ## 提示: Your cgroup does not allow setting memory.
 --addons registry --addons ingress #--addons istio
 
@@ -41,7 +42,7 @@ helm install \
   kiali-server \
   kiali-server
 
-nohup  kubectl port-forward svc/kiali 20001:20001 -n istio-system >/dev/null 2>&1 &
+nohup kubectl port-forward svc/kiali 20001:20001 -n istio-system >/dev/null 2>&1 &
 
 
 # 将 minikube cli所在机器的5000端口转发至service/registry 的80cluster端口,它会帮我们转发至内部的registry的5000端口

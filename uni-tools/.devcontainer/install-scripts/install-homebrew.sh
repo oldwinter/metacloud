@@ -11,7 +11,16 @@ rm -rf brew-install
 test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 test -r ~/.bash_profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bash_profile
-test -r ~/.profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.profile
-test -r ~/.zprofile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.zprofile
+test -r ~/.zshrc && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.zshrc
+echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.profile
+
+# fzf: 找文件神器
+# thefuck：自动纠错上条命令并执行 
+# kubectl：先装上再说，永远会有k8s集群待你去连接
+# kubectx: 切换集群和namespace，多集群管理好用得飞起
+brew install fzf 
+brew  install thefuck 
+brew  install kubectl 
+brew  install kubectx 
 
 brew cleanup

@@ -83,7 +83,7 @@ npm init metacloud
 
 1. 通用工具型容器 uni-tools。推荐个人使用。里面有各种必备，高效，好玩的命令行工具，你可以考虑带着它去任意机器上玩耍，或者定制一个专属自己的工具型容器，其 dockerfile 位于 `uni-tools/.devcontainer/`。
 
-2. 专属工程 devops 容器。推荐团队使用。里面封装好团队共同的开发工具和规范。并有一个小型的 docker in docker 以及 minikube。在这一个容器里，就完全实现了开发改 1 行代码-->10 秒上生产环境的全过程。
+2. 专属工程 devops 容器。推荐团队使用。里面封装好团队共同的开发工具和规范。并有一个小型的 docker in docker 以及 minikube。在这一个容器里，就完全实现了开发改 1 行代码-->10 秒上生产环境的全过程。其 dockerfile 位于 `.devcontainer/`
 
 打开本机 terminal，
 
