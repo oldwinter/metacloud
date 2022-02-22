@@ -21,12 +21,13 @@
 ## 1.1 项目介绍
 
 > metacloud，是工具，也是方法论：
-> 作为工具，它只通过 VSCode + docker + minikube，将一台计算机，衍生出无数的独立开发环境。
+> 作为工具，它只通过 VSCode + docker，将一台计算机，衍生出无数的独立开发环境。
 > 作为方法论，它将开源社区「最新的思想」和「最热的项目」，融合到工具中，且所见即所得。
 
 ## 1.2 项目文档
 
 <!-- [在线文档](https://doc.oldwinter.com) : <https://doc.oldwinter.com> -->
+
 TODO
 
 ## 1.3 项目预览
@@ -38,7 +39,7 @@ TODO
 ## 1.4 项目特点
 
 - 面向开源社区开发：不造轮子，全部基于开源项目缝合，且只选最新、最酷、最热门的项目
-- 面向云原生开发：要实现cloud native，先实现contaier native，顺便完成service mesh和devops
+- 面向云原生开发：要实现 cloud native，先实现 contaier native，顺便完成 service mesh 和 devops
 - 背对云平台开发：使用云却不被任何云绑定，万花丛中过，片叶不沾身
 
 ---
@@ -51,7 +52,7 @@ TODO
 
 本机安装 [VSCode](https://code.visualstudio.com/download)（Remote-Containers 插件） + [Docker](https://www.docker.com/get-started) + 科学上网
 
-<!-- 
+<!--
 ### 2.1.2 远程开发
 
 ```text
@@ -61,28 +62,51 @@ TODO
 
 ## 2.2 环境构建
 
-```bash
-# pull打包了各种好用工具的「瑞士军刀」镜像，其dockerfile位于uni-tools中
-docker pull oldwinter/uni-tools:latest
-# 启动并进入uni-tool容器
-docker run -it -v /home:/home oldwinter/uni-tools zsh
-# 根据提示，初始化项目，主要git clone， devcontainer build
-npm init metacloud
+打开本机 terminal，
 
+```bash
+📢如果你等不及 pull 镜像，且本机已经有 npm，可以先跳过前 2 步，直接本机执行 npm init metacloud 操作
+
+# pull 打包了各种好用工具的「瑞士军刀」镜像
+docker pull oldwinter/uni-tools:latest
+
+# 启动并进入 uni-tools 容器
+docker run -it -v /home:/home -v /var/run/docker.sock:/var/run/docker.sock oldwinter/uni-tools zsh
+
+# 根据提示，初始化项目，主要执行 git clone， devcontainer build 等操作
+npm init metacloud
 ```
 
 ## 2.3 启动开发
 
-接下来分为 3 类，根据在上一步做的选择，按需选择 1 种继续操作。
+完成上一节后。本机应该已经有了 1+1 个容器镜像，后续步骤将会默认启动：
+
+1. 通用工具型容器 uni-tools。推荐个人使用。里面有各种必备，高效，好玩的命令行工具，你可以考虑带着它去任意机器上玩耍，或者定制一个专属自己的工具型容器，其 dockerfile 位于 `uni-tools/.devcontainer/`。
+
+2. 专属工程 devops 容器。推荐团队使用。里面封装好团队共同的开发工具和规范。并有一个小型的 docker in docker 以及 minikube。在这一个容器里，就完全实现了开发改 1 行代码-->10 秒上生产环境的全过程。
+
+打开本机 terminal，
+
+```bash
+#
+docker images | grep vsc
+
+#
+
+
+```
+
+接下来分为 3 类，根据在上一节做的选择，按需选择 1 种继续操作。或者最好都玩一遍 😄。
 
 ### 2.3.1 纯前端开发
 
-本机开一个 VSCode 窗口，此处设其名为portal-code
-`shift+cmd+p` 打开 VSCode 命令控制台,输入 `open folder in container`，选择根目录下的 portal 目录。
+本机开一个 VSCode 窗口，此处设其名为 A，
 
-此后，你的这个portal-code窗口，就是一个完全独立的前端开发环境。
+`shift+cmd+p` 打开 VSCode 命令控制台，输入 `open folder in container`，选择根目录下的 `portal/` 目录。
 
-**shift+ctrl+`** 打开VSCode 内置 Terminal，
+此后，这个 A 窗口，就是一个完全独立的前端开发环境。
+
+**shift+ctrl+`** 打开 VSCode 内置 Terminal，
 
 ```bash
 # 安装依赖
@@ -94,40 +118,52 @@ npm run dev
 
 ### 2.3.2 全栈开发
 
-本机开一个 VSCode 窗口，此处设其名为admin-code
+本机开一个 VSCode 窗口，此处设其名为 B，
 
-**shift+ctrl+`** 打开VSCode VSCode 内置 Terminal，
+**shift+ctrl+`** 打开 VSCode 内置 Terminal，
 
 ```bash
-//启动全部 dev container（默认启动container中的进程），第一次构建分钟级耗时
-docker compose up -f docker-compose.yaml
+#启动全部 devcontainer（默认执行 container 中的服务启动脚本）
+docker compose up -f devops/docker-compose.yaml
 ```
 
-**shift+cmd+p** 打开 VSCode 命令控制台,输入 attach to running container，按需选择待开发的微服务即可。
+`shift+cmd+p` 打开 VSCode 命令控制台，输入 attach to running container，按需选择待开发的微服务即可。此时 VSCode 会默认销毁窗口 B，新建一个窗口 C。如要同时调测多个微服务，则再开多个 VSCode 窗口，分别 attach 或 open in container，生出窗口 D,E...
 
-这时候你应该已经能明显体会到： **一个VSCode窗口 ＝ 一个开发环境**
+这时候你应该已经能明显体会到：
+
+> **一个窗口 ＝ 一个开发环境 ＝ 一个微服务**
 
 ### 2.3.3 运维开发
 
-本机开一个 VSCode 窗口，此处设其名为admin-code
-**shift+ctrl+`** 打开VSCode 内置 Terminal，
+本机开一个 VSCode 窗口，此处设其名为 Z，
+
+`shift+cmd+p` 打开 VSCode 命令控制台，输入 `open folder in container`，选择根目录。
+
+**shift+ctrl+`** 打开 VSCode 内置 Terminal，
 
 ```bash
-# 初始化安装开发环境
+# 初始化安装运维开发环境 docker, minikube 和 istio
 zx devops/scripts/install.mjs
 
-# 构建 全部微服务镜像
+# 构建全部微服务生产环境使用的镜像
 zx devops/scripts/build.mjs --local
 
-# 为k8s集群创建各类资源
+# 发布构建产物：镜像，npm，brew 包等等
+zx devops/scripts/publish.mjs
+
+# 为 k8s 集群创建各类资源，部署微服务
 zx devops/scripts/deploy.mjs
+
+# 确保全部 pod 均正常 running 状态
+kubectl get pod --all-namespaces
+
 ```
 
 ---
 
 # 3. 整体架构
 
-## 3.1 vscode + devcontainer架构图
+## 3.1 vscode + devcontainer 架构图
 
 ![系统架构图](http://qmplusimg.henrongyi.top/gva/gin-vue-admin.png)
 
@@ -148,34 +184,34 @@ zx devops/scripts/deploy.mjs
 
 # 4. 进阶玩法
 
-- 修改devcontainer文件夹，定制团队一致的开发环境
-- 在本机，用iTerm2，批量连接所有开发环境
-- 在线打开github直接开始开发
-- 直接连接至生产环境的k8s中的pod进行debug
+- 修改。devcontainer 文件夹，定制团队一致的开发环境
+- 在本机，用 iTerm2，批量连接所有开发环境
+- 在线打开 github 直接开始开发
+- 直接连接至生产环境的 k8s 中的 pod 进行 debug
 - 在已有集群中，快速创建一个新的微服务
 - 将现有业务，快速适配融合至本项目
-  
+
 ---
 
 # 5. 技术选择
 
-## 5.1 为什么只用 VSCode + docker
+## 5.1 为什么只用 VSCode + Docker
 
 ### 5.1.1 为什么是 VSCode
 
-- 原生支持 devops in container, 力度极大
-- 开源、免费、轻量、好用. 用户量第一，版本周更
+- 原生支持 devops in container，力度极大
+- 开源、免费、轻量、好用。用户量第一，版本周更
 - 插件机制，满足你的一切幻想，开发者的第二个操作系统
 
-### 5.1.2 为什么是 docker
+### 5.1.2 为什么是 Docker
 
-- 基础架构即代码，和环境问题说byebye
-- cloud native，从Coding阶段抓起
-- 微服务化，devops，无痛上云，docker全搞定
-  
+- 基础架构即代码，和环境问题说 byebye
+- 秒级启动，极致轻量。我个人 4U8G 的笔记本，可以运行一套 k8s，共 50+个容器
+- 微服务化，devops，cloud native，有 docker 才有这一切
+
 ### 有什么劣势？
 
-- 没有劣势，这就是未来🐯
+- 没有劣势，这就是未来 🐯
 
 ## 5.2 具体开源技术选型
 
@@ -188,21 +224,20 @@ zx devops/scripts/deploy.mjs
   3. 用 [Python](https://www.python.org) 玩各种新技术的 demo
   4. 用 [Mysql](https://www.mysql.com/) 和 [Redis](https://redis.io/) 作为数据库中间件
 - 运维&云原生：
-  1. 用 [docker](https:www.docker.com) 进行微服务container化封装
-  2. 用 [kubernetes](https://kubernetes.io/) 进行container集群化部署
+  1. 用 [docker](https:www.docker.com) 进行微服务容器化封装
+  2. 用 [kubernetes](https://kubernetes.io/) 进行容器集群化部署
   3. 用 [istio](https://istio.io) 进行集群服务网格化治理
-  4. 用 [helm](https://helm.sh/) 进行 k8s 资源的包管理和部署，[docker-compose](https://docs.docker.com/compose/)仅在开发阶段使用
+  4. 用 [helm](https://helm.sh/) 进行 k8s 资源的包管理和部署，[docker-compose](https://docs.docker.com/compose/) 仅在开发阶段使用
 - 构建脚本：
-  1. 尝试不用bash，改用现在很火的 [zx](https://github.com/google/zx) ，进行脚本编写。
-  
+  1. 尝试不用 bash，改用现在很火的 [zx](https://github.com/google/zx) ，进行脚本编写。
 
 ---
 
-# 5. 将来也许
+# 6. 将来也许
 
 - [x] 完成最小可行性版本，串通全流程
 - [ ] 编写详细文档，阐述设计理念
 - [ ] 尝试用 knative 实现 serverless
-- [ ] 体验openyurt的边缘治理能力
+- [ ] 体验 openyurt 的边缘治理能力
 - [ ] 完全上云版本，支持生产可用
 - [ ] 践行云原生的工具栈和技术栈的融合思考
