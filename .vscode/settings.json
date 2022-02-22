@@ -1,6 +1,16 @@
 {
-	"markdownlint.ignore": [
-		"MD033",
-		"MD032"
-	]
+	"markdownlint.config": {
+        "default": true,
+        "MD033": false,
+        "MD041": false
+    },
+	"[markdown]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true,
+		"editor.codeActionsOnSave": {
+			"source.fixAll.markdownlint": true
+		}
+	},
+	
+	
 }
