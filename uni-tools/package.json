@@ -15,13 +15,14 @@
   },
   "devDependencies": {
     "esbuild": "^0.14.23",
-    "zx": "^5.1.0"
+    "zx": "^5.1.0",
+    "pnpm": "6.32.0"
   },
   "scripts": {
-    "dev": "npm run build && node out.cjs",
+    "dev": "pnpm run build && node out.cjs",
     "build": "zx scripts/build.mjs"
   },
   "author": "oldwinter",
   "license": "ISC",
-  "description": ""
+  "description": "a tool for init devcontainer"
 }

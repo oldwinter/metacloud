@@ -1,0 +1,2 @@
+echo y | bash -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sed -i 's/plugins=(git)/plugins=(git z extract zsh-autosuggestions zsh-syntax-highlighting kubectl docker)/g' ~/.zshrc

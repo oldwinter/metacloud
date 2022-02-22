@@ -101,31 +101,76 @@ async function init() {
   childGit.on('close', function (code) {
     spinnerCloneCode.succeed('git clone done')
     const spinnerNpmInstall = ora('npm install ...').start()
-    let childNpm = exec('npm install -g devcontainer')
+    let childNpm = exec('npm install -g @vscode/dev-container-cli')
     childNpm.on('close', function (code) {
       spinnerNpmInstall.succeed('npm install done')
       if (localOrRemote === 'locally' && dindOrDfromD === 'dind') {
-        if (devRole === "frontend") {
-          // spinner.succeed('Done. Now run:\n')
-          // 等微软修复devcontainer的open功能
-          console.log(`${chalk.bold.green('cd metacloud/portal')}`)
-          console.log(`${chalk.bold.green('npm install')}`)
-          console.log(`${chalk.bold.green('npm run dev')}`)
-        }
-        if (devRole === "backend") {
-          console.log(`${chalk.bold.green('cd metacloud')}`)
-          console.log(`${chalk.bold.green('docker compose up')}`)
-        }
-        if (devRole === "devops") {
-          const spinnerDockerBuild = ora('devcontainer build ...').start()
-          let childBuild = exec('devcontainer build ./metacloud')
-          childBuild.on('close', function (code) {
-            spinnerDockerBuild.succeed('devcontainer build done')
-          })
-          console.log(`${chalk.bold.green('open vscode')}`)
-          console.log(`${chalk.bold.green('open folder in container')}`)
-        }
+        // if (devRole === "frontend") {
+        //   // spinner.succeed('Done. Now run:\n')
+        //   // 等微软修复devcontainer的open功能
+        //   console.log(`${chalk.bold.green('cd metacloud/portal')}`)
+        //   console.log(`${chalk.bold.green('npm install')}`)
+        //   console.log(`${chalk.bold.green('npm run dev')}`)
+        // }
+        // if (devRole === "fullstack") {
+        //   console.log(`${chalk.bold.green('cd metacloud')}`)
+        //   console.log(`${chalk.bold.green('docker compose up')}`)
+        // }
+        // if (devRole === "devops") {
+        //   console.log(`${chalk.bold.green('open vscode')}`)
+        //   console.log(`${chalk.bold.green('open folder in container')}`)
+        // }
+        // 如果是dind模式，这里只build main devcontainer，其他container，需要在main里面build
+        const spinnerDockerBuild = ora('main devcontainer build ...').start()
+        let childBuild = exec('devcontainer build ./metacloud')
+        childBuild.on('close', function (code) {
+          spinnerDockerBuild.succeed('main devcontainer build done')
+        })
+
       }
+
+      if (localOrRemote === 'locally' && dindOrDfromD === 'dfromd') {
+        const spinnerDockerBuild = ora('main devcontainer build ...').start()
+        let childBuild = exec('devcontainer build ./metacloud')
+        childBuild.on('close', function (code) {
+          spinnerDockerBuild.succeed('main devcontainer build done')
+        })
+        const spinnerDockerBuild1 = ora('portal devcontainer build ...').start()
+        let childBuild1 = exec('devcontainer build ./metacloud/portal')
+        childBuild1.on('close', function (code) {
+          spinnerDockerBuild1.succeed('portal devcontainer build done')
+        })
+        const spinnerDockerBuild2 = ora('server-gin devcontainer build ...').start()
+        let childBuild2 = exec('devcontainer build ./metacloud/server/gin')
+        childBuild2.on('close', function (code) {
+          spinnerDockerBuild2.succeed('server-gin devcontainer build done')
+        })
+        const spinnerDockerBuild3 = ora('server-toy devcontainer build ...').start()
+        let childBuild3 = exec('devcontainer build ./metacloud/server/toy')
+        childBuild3.on('close', function (code) {
+          spinnerDockerBuild3.succeed('server-toy devcontainer build done')
+        })
+
+
+      }
+
+      if (devRole === "frontend") {
+        console.log(`${chalk.bold.green('cd metacloud/portal')}`)
+        console.log(`${chalk.bold.green('npm install')}`)
+        console.log(`${chalk.bold.green('npm run dev')}`)
+        console.log(`${chalk.bold.cyan('open browser')}`)
+      }
+      if (devRole === "fullstack") {
+        console.log(`${chalk.bold.green('cd metacloud')}`)
+        console.log(`${chalk.bold.green('docker compose up -f devops/docker-compose.yaml')}`)
+        console.log(`${chalk.bold.cyan('open vscode')}`)
+        console.log(`${chalk.bold.cyan('ctrl+shift+p: open folder in container, choose portal/ or server/gin/ or server/toy/')}`)
+      }
+      if (devRole === "devops") {
+        console.log(`${chalk.bold.cyan('open vscode')}`)
+        console.log(`${chalk.bold.cyan('ctrl+shift+p: open folder in container, choose metacloud/')}`)
+      }
+
     })
   });
 }
