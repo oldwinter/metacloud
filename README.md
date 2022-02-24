@@ -50,7 +50,7 @@ TODO
 
 ### 2.1.1 本机开发
 
-本机安装 [VSCode](https://code.visualstudio.com/download)（Remote-Containers 插件） + [Docker](https://www.docker.com/get-started) + 科学上网
+本机安装 [VSCode](https://code.visualstudio.com/download)（Remote-Containers 插件） + [Docker](https://www.docker.com/get-started) + [Nodejs](https://nodejs.org/)+ 科学上网
 
 <!--
 ### 2.1.2 远程开发
@@ -74,28 +74,36 @@ docker run -it -v /home:/home -v /var/run/docker.sock:/var/run/docker.sock oldwi
 
 ```bash
 
-# 根据提示，初始化项目，主要执行 git clone， devcontainer build 等操作
+# 根据提示，初始化项目，主要执行 git clone， docker build， docker run 等操作
 npm init metacloud
 ```
 
 ## 2.3 启动开发
 
-完成上一节后。本机应该已经有了 1 个容器镜像，后续步骤将会默认启动：
+完成上一节后。打开浏览器，查看前端界面：<http://localhost:8000>
 
 <!-- 1. 通用工具型容器 uni-tools。推荐个人使用。里面有各种必备，高效，好玩的命令行工具，你可以考虑带着它去任意机器上玩耍，或者定制一个专属自己的工具型容器，其 dockerfile 位于 `uni-tools/.devcontainer/`。 -->
 
-2. 专属工程 devops 容器。推荐团队使用。里面封装好团队共同的开发工具和规范。并有一个小型的 docker in docker 以及 minikube（或者是docker from docker，并复用本机上的minikube）。在这一个容器里，就完全实现了开发改 1 行代码-->10 秒上生产环境的全过程。其 dockerfile 位于 `.devcontainer/`
+<!-- 2. 专属工程 devops 容器。推荐团队使用。里面封装好团队共同的开发工具和规范。并有一个小型的 docker in docker 以及 minikube（或者是docker from docker，并复用本机上的minikube）。在这一个容器里，就完全实现了开发改 1 行代码-->10 秒上生产环境的全过程。其 dockerfile 位于 `.devcontainer/` -->
 
 打开本机 terminal，
 
 ```bash
-# 查看本机已经构建出的devcontainer
+# 查看本机已经构建且运行的devcontainer
+docker ps | grep meta
+
+CONTAINER ID   IMAGE                   COMMAND                  CREATED         STATUS         PORTS                    NAMES
+0ea65c34050c   mysql:8.0               "docker-entrypoint.s…"   7 minutes ago   Up 7 minutes   0.0.0.0:3306->3306/tcp   meta-dev-mysql
+ce9e4d919166   devops_dev-server-toy   "/bin/sh -c 'pip3 in…"   7 minutes ago   Up 7 minutes   0.0.0.0:8002->8002/tcp   meta-dev-server-toy
+6d34662783eb   redis:7.0-rc-bullseye   "docker-entrypoint.s…"   7 minutes ago   Up 7 minutes   0.0.0.0:6379->6379/tcp   meta-dev-redis
+33e1ed2b4489   devops_dev-server-gin   "/bin/sh -c 'go buil…"   7 minutes ago   Up 7 minutes   0.0.0.0:8001->8001/tcp   meta-dev-server-gin
+546983007ace   devops_dev-portal       "docker-entrypoint.s…"   7 minutes ago   Up 7 minutes   0.0.0.0:8000->8000/tcp   meta-dev-portal
+
+#若选择了devops模式体验全工程，还会有一个尚未运行的镜像
 docker images | grep vsc
 
-> vsc-metacloud-612dd3fcdc19c84c66941286bd4a8e42-features   latest    14ab39946ea3   18 hours ago   919MB
-
-# 
-
+REPOSITORY                                                TAG               IMAGE ID       CREATED             SIZE
+vsc-metacloud-612dd3fcdc19c84c66941286bd4a8e42-features   latest            14ab39946ea3   18 hours ago        919MB
 
 ```
 
@@ -103,7 +111,7 @@ docker images | grep vsc
 
 ### 2.3.1 纯前端开发
 
-本机开一个 VSCode 窗口，此处设其名为 A，
+本机新打开一个 VSCode 窗口，此处设其名为 A，
 
 `shift+cmd+p` 打开 VSCode 命令控制台，输入 `open folder in container`，选择根目录下的 `portal/` 目录。
 
