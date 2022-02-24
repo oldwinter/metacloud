@@ -1,26 +1,15 @@
-# 开发模式使用，生产用helm 部署
-# 1,在 docker in docker 方案下. 在本机运行,则若干个 devcontainer,运行在主机上
-# 2,在 docker in docker 方案下, 在admin的devcontainer中运行,则若干个devcontainer,运行在docker内
-# 更推荐方案1, 更符合 [1个vscode窗口=1个开发环境≈开发一个微服务] 的场景, 使用起来更清晰 ; 
-# 方案2也可,嵌套层级比较深,看个人习惯.
-# 3,在 docker from docker 方案下， 在admin的devcontainer中运行，会出现无法获取主机实际工程根路径，从而无法挂卷的问题。需要手动传环境变量LOCAL_WORKSPACE_FOLDER。
-
-#安装vscode docker插件,以获取语法自动提示和补全功能
+# 全部是dev容器，随时启动vscode，并open in container，在内置terminal里，重编译，重新起新进程。
 version: "3"
 services:
-  portal:
+  dev-portal:
     build:
       context: ../portal
       dockerfile: .devcontainer/Dockerfile
       args: { "VARIANT": "16-bullseye" }
-    container_name: meta-portal
+    container_name: meta-dev-portal
     restart: always
     volumes:
-      # Mount the root folder that contains .git 到 容器内的/workspaces目录
-      # 若要在container中执行docker-compose命令，前者得写主机的路径，不能写当年container的路径，有点绕，
-      # TODO，想办法改良，或者在宿主机执行docker-compose命令
-      # - /Users/cdd/Works/code/metacloud:/workspaces:cached
-      - ${LOCAL_WORKSPACE_FOLDER:-.}:/workspaces:cached
+      - ../:/workspaces:cached
     ports:
       - '8000:8000'
     command:
@@ -31,15 +20,15 @@ services:
         pnpm install
         pnpm dev
 
-  server-gin:
+  dev-server-gin:
     build:
       context: ../server/gin
       dockerfile: .devcontainer/Dockerfile
       args: {"VARIANT": "1.17-bullseye","NODE_VERSION": "lts/*"}
-    container_name: meta-server-gin
+    container_name: meta-dev-server-gin
     restart: always
     volumes:
-      - ${LOCAL_WORKSPACE_FOLDER:-.}:/workspaces:cached
+      - ../:/workspaces:cached
     ports:
       - '8001:8001'
     depends_on:
@@ -54,16 +43,16 @@ services:
       - |
         go build server.go 
         ./server
-  server-toy:
+  dev-server-toy:
     build:
       context: ../server/toy
       dockerfile: .devcontainer/Dockerfile
       args: { "VARIANT": "3.9-bullseye","NODE_VERSION": "lts/*"}
-    container_name: meta-server-toy
+    container_name: meta-dev-server-toy
     restart: always
     volumes:
       # Mount the root folder that contains .git
-      - ${LOCAL_WORKSPACE_FOLDER:-.}:/workspaces:cached
+      - ../:/workspaces:cached
     ports:
       - '8002:8002'
     command: 
@@ -72,9 +61,9 @@ services:
       - |
         pip3 install -r requirements.txt
         python app.py
-  mysql:
+  dev-mysql:
     image: mysql:8.0
-    container_name: meta-mysql
+    container_name: meta-dev-mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
     restart: always
     ports:
@@ -82,9 +71,9 @@ services:
     environment:
       MYSQL_DATABASE: 'MCdev' # 初始化启动时要创建的数据库的名称
       MYSQL_ROOT_PASSWORD: 'mc@123' # root管理员用户密码
-  redis:
+  dev-redis:
     image: redis:7.0-rc-bullseye
-    container_name: meta-redis 
+    container_name: meta-dev-redis 
     restart: always
     ports:
       - '6379:6379'

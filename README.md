@@ -64,14 +64,15 @@ TODO
 
 打开本机 terminal，
 
-```bash
-📢如果你等不及 pull 镜像，且本机已经有 npm，可以先跳过前 2 步，直接本机执行 npm init metacloud 操作
+<!-- 📢如果你等不及 pull 镜像，且本机已经有 npm，可以先跳过前 2 步，直接本机执行 npm init metacloud 操作
 
 # pull 打包了各种好用工具的「瑞士军刀」镜像
 docker pull oldwinter/uni-tools:latest
 
 # 启动并进入 uni-tools 容器
-docker run -it -v /home:/home -v /var/run/docker.sock:/var/run/docker.sock oldwinter/uni-tools zsh
+docker run -it -v /home:/home -v /var/run/docker.sock:/var/run/docker.sock oldwinter/uni-tools zsh -->
+
+```bash
 
 # 根据提示，初始化项目，主要执行 git clone， devcontainer build 等操作
 npm init metacloud
@@ -79,19 +80,21 @@ npm init metacloud
 
 ## 2.3 启动开发
 
-完成上一节后。本机应该已经有了 1+1 个容器镜像，后续步骤将会默认启动：
+完成上一节后。本机应该已经有了 1 个容器镜像，后续步骤将会默认启动：
 
-1. 通用工具型容器 uni-tools。推荐个人使用。里面有各种必备，高效，好玩的命令行工具，你可以考虑带着它去任意机器上玩耍，或者定制一个专属自己的工具型容器，其 dockerfile 位于 `uni-tools/.devcontainer/`。
+<!-- 1. 通用工具型容器 uni-tools。推荐个人使用。里面有各种必备，高效，好玩的命令行工具，你可以考虑带着它去任意机器上玩耍，或者定制一个专属自己的工具型容器，其 dockerfile 位于 `uni-tools/.devcontainer/`。 -->
 
-2. 专属工程 devops 容器。推荐团队使用。里面封装好团队共同的开发工具和规范。并有一个小型的 docker in docker 以及 minikube。在这一个容器里，就完全实现了开发改 1 行代码-->10 秒上生产环境的全过程。其 dockerfile 位于 `.devcontainer/`
+2. 专属工程 devops 容器。推荐团队使用。里面封装好团队共同的开发工具和规范。并有一个小型的 docker in docker 以及 minikube（或者是docker from docker，并复用本机上的minikube）。在这一个容器里，就完全实现了开发改 1 行代码-->10 秒上生产环境的全过程。其 dockerfile 位于 `.devcontainer/`
 
 打开本机 terminal，
 
 ```bash
-#
+# 查看本机已经构建出的devcontainer
 docker images | grep vsc
 
-#
+> vsc-metacloud-612dd3fcdc19c84c66941286bd4a8e42-features   latest    14ab39946ea3   18 hours ago   919MB
+
+# 
 
 
 ```
@@ -114,6 +117,8 @@ npm i
 
 # 启动 portal 开发
 npm run dev
+
+# ! 目前前端工程由于node_modules的存在，挂卷进来会造成较大性能问题，此处仅做预览使用。更推荐前端等nodejs工程不要将主机上的git工程挂卷进来，而是容器内单独git clone一个进行开发。
 ```
 
 ### 2.3.2 全栈开发
@@ -123,8 +128,21 @@ npm run dev
 **shift+ctrl+`** 打开 VSCode 内置 Terminal，
 
 ```bash
+
+# https://docs.docker.com/engine/reference/commandline/inspect/
+docker inspect 5bd --format "{{json .Mounts}}{{.type}}"
+
+# 获取主机上工程目录，挂卷至容器中
+
+export LOCAL_WORKSPACE_FOLDER=`pwd`
+
+cd devops/
+
 #启动全部 devcontainer（默认执行 container 中的服务启动脚本）
-docker compose up -f devops/docker-compose.yaml
+docker-compose up -d
+
+docker ps -a |grep meta
+> 
 ```
 
 `shift+cmd+p` 打开 VSCode 命令控制台，输入 attach to running container，按需选择待开发的微服务即可。此时 VSCode 会默认销毁窗口 B，新建一个窗口 C。如要同时调测多个微服务，则再开多个 VSCode 窗口，分别 attach 或 open in container，生出窗口 D,E...

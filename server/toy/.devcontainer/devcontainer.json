@@ -13,7 +13,7 @@
 	// "dockerComposeFile": ".../docker-compose.yaml",
 	// "service": "server-toy",
 	"workspaceFolder": "/workspaces/metacloud/server/toy",
-	"shutdownAction": "none",
+	"shutdownAction": "stopContainer",
 
 
 	// Set *default* container specific settings.json values on container create.

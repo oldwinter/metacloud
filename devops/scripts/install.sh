@@ -5,6 +5,9 @@
 
 # process.env.WORKSPACE_DIR = ""
 
+###! docker from docker
+
+# sudo chown -R $USER $HOME/.minikube; chmod -R u+wrx $HOME/.minikube
 # 安装minikube集群
 minikube start \
 # --memory 6g \ ## 提示: Your cgroup does not allow setting memory.
@@ -18,13 +21,13 @@ helm repo add istio https://istio-release.storage.googleapis.com/charts
 helm repo update
 kubectl create namespace istio-system
 helm install istio-base istio/base -n istio-system
-helm install istiod istio/istiod -n istio-system --wait
+helm install istiod istio/istiod -n istio-system 
 kubectl label namespace default istio-injection=enabled
 
 # 安装istio-ingress
 kubectl create namespace istio-ingress
 kubectl label namespace istio-ingress istio-injection=enabled
-helm install istio-ingress istio/gateway -n istio-ingress --wait
+helm install istio-ingress istio/gateway -n istio-ingress 
 
 # 安装Prometheus
 kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.13/samples/addons/prometheus.yaml
@@ -42,16 +45,12 @@ helm install \
   kiali-server \
   kiali-server
 
-nohup kubectl port-forward svc/kiali 20001:20001 -n istio-system >/dev/null 2>&1 &
+# nohup kubectl port-forward svc/kiali 20001:20001 -n istio-system >/dev/null 2>&1 &
 
 
 # 将 minikube cli所在机器的5000端口转发至service/registry 的80cluster端口,它会帮我们转发至内部的registry的5000端口
 nohup kubectl port-forward --namespace kube-system service/registry 5000:80 >/dev/null 2>&1 &
 
-# 镜像 build tag  localhost:5000/{name}:{tag}
-zx docker-build.mjs --repo localhost --port 5000 --version v1
 
-# helm里面的镜像地址改成localhost:5000/{name}:{tag}
-helm install -f devops/helm/metacloud-workflow/values.yaml  metacloud-stack devops/helm/metacloud-workflow/
 
 
