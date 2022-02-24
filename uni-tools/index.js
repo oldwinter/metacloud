@@ -122,9 +122,9 @@ async function init() {
     await execP('npm install -g @vscode/dev-container-cli')
     spinner.succeed('npm install done')
 
-    const spinner = ora('main devcontainer build ...').start()
-    = await execP('devcontainer build ./metacloud --image-name meta-dev-admin:latest')
-    spinner.succeed('main devcontainer build done')
+    const spinner2 = ora('main devcontainer build ...').start()
+    await execP('devcontainer build ./metacloud --image-name meta-dev-admin:latest')
+    spinner2.succeed('main devcontainer build done')
 
   }
   console.log(`${chalk.bold.green('go on with README.md chapter : 2.3')}`)
