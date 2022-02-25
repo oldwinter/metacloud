@@ -8,7 +8,7 @@
     "prompts": "^2.4.2"
   },
   "name": "create-metacloud",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "index.js",
   "bin": {
     "mc": "out.cjs"
@@ -16,12 +16,13 @@
   "devDependencies": {
     "esbuild": "^0.14.23",
     "zx": "^5.1.0",
-    "pnpm": "6.32.0"
+    "pnpm": "6.32.1"
   },
   "scripts": {
     "dev": "pnpm run build && node out.cjs",
     "build": "zx scripts/build.mjs"
   },
+  "type": "module",
   "author": "oldwinter",
   "license": "ISC",
   "description": "a tool for init devcontainer"
