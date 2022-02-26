@@ -8,10 +8,10 @@
     "prompts": "^2.4.2"
   },
   "name": "create-metacloud",
-  "version": "1.0.7",
+  "version": "1.0.12",
   "main": "index.js",
   "bin": {
-    "mc": "out.cjs"
+    "create-metacloud": "out.cjs"
   },
   "devDependencies": {
     "esbuild": "^0.14.23",
@@ -19,8 +19,9 @@
     "pnpm": "6.32.1"
   },
   "scripts": {
-    "dev": "pnpm run build && node out.cjs",
-    "build": "zx scripts/build.mjs"
+    "dev": "pnpm run build && ./out.cjs",
+    "build": "zx scripts/build.mjs",
+    "release": "pnpm run build && pnpm publish --no-git-checks"
   },
   "type": "module",
   "author": "oldwinter",

@@ -1,9 +1,10 @@
+#!/usr/bin/env node
 import chalk from 'chalk';
 import { exec } from 'child_process';
 import clear from 'clear';
 import figlet from 'figlet';
 import standard from 'figlet/importable-fonts/Standard.js'
-import ora from 'ora';
+import ora, { oraPromise } from 'ora';
 import prompts from 'prompts';
 import util from 'util';
 import boxen from 'boxen';
@@ -86,19 +87,25 @@ async function init() {
   let childGit = await execPromise('git clone https://github.com/oldwinter/metacloud.git')
   spinnerCloneCode.succeed('git clone done')
 
-
+  // mac和windows装好docker后，自带docker compose和docker-compose，linux这边要检测一下，装一下docker-compose CLI
+  // https://docs.docker.com/compose/install/
+  await oraPromise(execPromise('curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose  && chmod +x /usr/local/bin/docker-compose'),{
+    text:"install docker-compose ...",
+    successText:"install docker-compose done"
+  })
+  // oraPromise()
   if (devRole === "frontend") {
-    const spinner = ora('docker compose up ...').start()
+    const spinner = ora('docker-compose up ...').start()
     // 永远先build，避免用了本地旧的同名镜像而出问题
-    await execPromise('docker compose -f metacloud/devops/docker-compose.singledev.yaml build')
-    await execPromise('docker compose -f metacloud/devops/docker-compose.singledev.yaml up -d')
-    spinner.succeed('docker compose up  done')
+    await execPromise('docker-compose -f metacloud/devops/docker-compose.singledev.yaml build')
+    await execPromise('docker-compose -f metacloud/devops/docker-compose.singledev.yaml up -d')
+    spinner.succeed('docker-compose up  done')
 
   } else if (devRole === "fullstack") {
-    const spinner = ora('docker compose up ...').start()
-    await execPromise('docker compose -f metacloud/devops/docker-compose.wholedev.yaml build')
-    await execPromise('docker compose -f metacloud/devops/docker-compose.wholedev.yaml up -d')
-    spinner.succeed('docker compose up  done')
+    const spinner = ora('docker-compose up ...').start()
+    await execPromise('docker-compose -f metacloud/devops/docker-compose.wholedev.yaml build')
+    await execPromise('docker-compose -f metacloud/devops/docker-compose.wholedev.yaml up -d')
+    spinner.succeed('docker-compose up  done')
 
   } else if (devRole === "devops") {
     const spinner = ora('npm install ...').start()

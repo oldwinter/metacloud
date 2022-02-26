@@ -5,6 +5,6 @@ esbuild.build(
     bundle: true,
     platform: 'node',
     outfile: 'out.cjs',
-    format: 'cjs',
+    format: 'cjs'
   }
 ).then(result => { console.log(result) })

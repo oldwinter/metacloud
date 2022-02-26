@@ -84,7 +84,7 @@ npm init metacloud
 
 <!-- 1. 通用工具型容器 uni-tools。推荐个人使用。里面有各种必备，高效，好玩的命令行工具，你可以考虑带着它去任意机器上玩耍，或者定制一个专属自己的工具型容器，其 dockerfile 位于 `uni-tools/.devcontainer/`。 -->
 
-<!-- 2. 专属工程 devops 容器。推荐团队使用。里面封装好团队共同的开发工具和规范。并有一个小型的 docker in docker 以及 minikube（或者是docker from docker，并复用本机上的minikube）。在这一个容器里，就完全实现了开发改 1 行代码-->10 秒上生产环境的全过程。其 dockerfile 位于 `.devcontainer/` -->
+<!-- 2. 专属工程 devops 容器。推荐团队使用。里面封装好团队共同的开发工具和规范。并有一个小型的 docker in docker 以及 minikube（或者是docker from docker，并复用本机上的minikube）。在这一个容器里，就完全实现了开发改 1 行代码 ==> 10 秒上生产环境的全过程。其 dockerfile 位于 `.devcontainer/` -->
 
 打开本机 terminal，
 
@@ -117,7 +117,7 @@ vsc-metacloud-612dd3fcdc19c84c66941286bd4a8e42-features   latest            14ab
 
 此后，这个 A 窗口，就是一个完全独立的前端开发环境。
 
-**shift+ctrl+`** 打开 VSCode 内置 Terminal，
+**ctrl+`** 打开 VSCode 内置 Terminal，
 
 ```bash
 # 安装依赖
@@ -133,9 +133,16 @@ npm run dev
 
 本机开一个 VSCode 窗口，此处设其名为 B，
 
-**shift+ctrl+`** 打开 VSCode 内置 Terminal，
+**ctrl+`** 打开 VSCode 内置 Terminal，
 
 ```bash
+# TODO 开发容器，内部启动后，指定forward，即可以在本机访问到
+docker ps |grep vsc
+
+89cb454e895b   vsc-toy-08c6c6f809ce645b4ed2263a97524866               "/bin/sh -c 'echo Co…"   4 minutes ago    Up 3 minutes                                        elegant_heisenberg
+8ce86db96f85   vsc-gin-78042bf5c69786c6e44bcf9fa3f417a6               "/bin/sh -c 'echo Co…"   5 minutes ago    Up 5 minutes                                        priceless_fermi
+c05efb0498b4   vsc-portal-b285246c94dcc7d9bbd2b7f34f836be7-features   "/bin/sh -c 'echo Co…"   15 minutes ago   Up 7 minutes                                        jolly_knuth
+
 
 # https://docs.docker.com/engine/reference/commandline/inspect/
 docker inspect 5bd --format "{{json .Mounts}}{{.type}}"
@@ -165,9 +172,13 @@ docker ps -a |grep meta
 
 `shift+cmd+p` 打开 VSCode 命令控制台，输入 `open folder in container`，选择根目录。
 
-**shift+ctrl+`** 打开 VSCode 内置 Terminal，
+**ctrl+`** 打开 VSCode 内置 Terminal，
 
 ```bash
+
+CONTAINER ID   IMAGE                                                     COMMAND                  CREATED         STATUS         PORTS                               NAMES
+3ed8d629b56b   vsc-metacloud-612dd3fcdc19c84c66941286bd4a8e42-features   "/bin/sh -c 'echo Co…"   3 minutes ago   Up 2 minutes                                       kind_moser
+
 # 初始化安装运维开发环境 docker, minikube 和 istio
 zx devops/scripts/install.mjs
 

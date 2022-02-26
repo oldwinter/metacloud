@@ -3,9 +3,12 @@
 // minikube + istio环境安装
 // 执行前需要确保 minikube kubectl 和 helm 的二进制已经安装
 
-await $`minikube start \
-        --addons registry --addons ingress \
-        --apiserver-names 127.0.0.1 host.docker.internal`
+// await $`minikube start \
+//         --addons registry --addons ingress \
+//         --image-mirror-country='cn' \
+//         --apiserver-names='127.0.0.1,host.docker.internal' 
+//         `
+//         // --cpus=4 --memory=4096mb 
 
 await $`helm repo add istio https://istio-release.storage.googleapis.com/charts
         helm repo update
