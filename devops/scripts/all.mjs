@@ -3,9 +3,9 @@
 
 
 let time = await $`echo $(date "+%Y%m%d-%H%M%S")`
-let version = time
-let repo = argv.repo
-let port = 58911
+let version = "v0.0.1" //time
+let repo = argv.repo ?? "localhost"
+let port = 5000
 
 // [开发测试]环境安装。通过cli工具引导进行
 // await $`zx install.mjs`

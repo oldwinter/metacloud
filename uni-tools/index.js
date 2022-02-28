@@ -85,6 +85,7 @@ async function init() {
 
   const spinnerCloneCode = ora('git clone ...').start()
   let childGit = await execPromise('git clone https://github.com/oldwinter/metacloud.git')
+  let childGit = await execPromise('chown -R 1000:1000 metacloud')
   spinnerCloneCode.succeed('git clone done')
 
   // mac和windows装好docker后，自带docker compose和docker-compose，linux这边要检测一下，装一下docker-compose CLI
@@ -101,20 +102,20 @@ async function init() {
     await execPromise('docker-compose -f metacloud/devops/docker-compose.singledev.yaml up -d')
     spinner.succeed('docker-compose up  done')
 
-  } else if (devRole === "fullstack") {
+  } else if (devRole === "fullstack" ||  (devRole === "devops")) {
     const spinner = ora('docker-compose up ...').start()
     await execPromise('docker-compose -f metacloud/devops/docker-compose.wholedev.yaml build')
     await execPromise('docker-compose -f metacloud/devops/docker-compose.wholedev.yaml up -d')
     spinner.succeed('docker-compose up  done')
 
   } else if (devRole === "devops") {
-    const spinner = ora('npm install ...').start()
-    await execPromise('npm install -g @vscode/dev-container-cli')
-    spinner.succeed('npm install done')
+    // const spinner = ora('npm install ...').start()
+    // await execPromise('npm install -g @vscode/dev-container-cli')
+    // spinner.succeed('npm install done')
 
-    const spinner2 = ora('main devcontainer build ...').start()
-    await execPromise('docker build ./metacloud/.devcontainer')
-    spinner2.succeed('main devcontainer build done')
+    // const spinner2 = ora('main devcontainer build ...').start()
+    // await execPromise('docker build ./metacloud/.devcontainer')
+    // spinner2.succeed('main devcontainer build done')
 
   }
   console.log(`${chalk.bold.green('go on with README.md chapter : 2.3')}`)

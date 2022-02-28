@@ -1,6 +1,6 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.217.1/containers/ubuntu
-// 容器内再建一个docker和k8s系统（目前用下来感觉性能折损率在20%左右，但比传统虚拟机好多了：https://github.com/microsoft/vscode-dev-containers/blob/main/containers/kubernetes-helm-minikube
+// 容器内用kubectl和helm客户端访问容器外的集群：https://github.com/microsoft/vscode-dev-containers/tree/main/containers/kubernetes-helm
 {
 	"name": "Ubuntu",
 	"build": {
@@ -13,7 +13,7 @@
 	// "image": "cdd2hw/metacloud:ubuntu-dind-minikube-216",
 
 	// --init 参数会在start container时,进行类似垃圾进程清理的动作; --privileged 参数会让container获得更高的系统级权限
-	"runArgs": ["--init"],
+	"runArgs": ["--init","--privileged"],
 
 	// "dockerComposeFile": "../docker-compose.yaml",
 	// "service": "devmaster",
@@ -31,15 +31,15 @@
 	"extensions": [
 		"ms-azuretools.vscode-docker",
 		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"redhat.vscode-yaml",
-		"uctakeoff.vscode-counter",
-		"DavidAnson.vscode-markdownlint",
-		"shd101wyy.markdown-preview-enhanced",
-		"oderwat.indent-rainbow",
-		"mhutchie.git-graph",
-		"donjayamanne.githistory",
-		"eamodio.gitlens",
-		"mindaro.mindaro"
+		// "redhat.vscode-yaml",
+		// "uctakeoff.vscode-counter",
+		// "DavidAnson.vscode-markdownlint",
+		// "shd101wyy.markdown-preview-enhanced",
+		// "oderwat.indent-rainbow",
+		// "mhutchie.git-graph",
+		// "donjayamanne.githistory",
+		// "eamodio.gitlens",
+		// "mindaro.mindaro"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -49,9 +49,9 @@
 	// TODO 官方镜像自带 zsh和oh-my-zsh， 这里改成默认用zsh，并加入zsh的kubectl插件，完善自动补全功能
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": [
-		"npm i -g zx", 			// 谷歌出的一个用js写shell脚本的小工具
-		"npm i -g http-server",  //临时起一个简单web-server的小工具
-		"curl -L https://istio.io/downloadIstio | sh - && cd istio-1.13.0 && export PATH=$PWD/bin:$PATH" //安装istioctl工具
+		// "npm i -g zx", 			// 谷歌出的一个用js写shell脚本的小工具
+		// "npm i -g http-server",  //临时起一个简单web-server的小工具
+		// "curl -L https://istio.io/downloadIstio | sh - && cd istio-1.13.0 && export PATH=$PWD/bin:$PATH" //安装istioctl工具
 	],
 	
 	// "postCreateCommand": "sudo bash /usr/local/share/docker-init.sh && sleep 5 && minikube start &&  npm i -g http-server && npm i -g zx" ,
@@ -60,15 +60,26 @@
 	// "postStartCommand": "minikube start" ,
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode",
+	"remoteUser": "root",
 
-	// feature模式其实就是微软封装的dockerfile里面执行的library-scripts脚本，如果安装失败，可以考虑换成脚本，并改动dockerfile
+
+	"mounts": [
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+		"source=${env:HOME}${env:USERPROFILE}/.kube,target=/usr/local/share/kube-localhost,type=bind",
+		"source=${env:HOME}${env:USERPROFILE}/.minikube,target=/usr/local/share/minikube-localhost,type=bind"
+	],
+	"remoteEnv": {
+		"SYNC_LOCALHOST_KUBECONFIG": "true",
+		// dfromd模式如果需要创建一个container并挂卷，得通过这个方式，获取主机实际工作目录 -v "${LOCAL_WORKSPACE_FOLDER//\\/\/}:/workspace"
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+	},
+	// feature在dockerfile构建完后，继续构建feature。这个模式其实就是微软封装的dockerfile里面执行的library-scripts脚本，如果安装失败，可以考虑换成脚本，并改动dockerfile
 	// https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/kubectl-helm.md
 	"features": {
 		// from模式，在容器中使用的实际上是宿主机docker
 		// "docker-from-docker": "latest", 
 		// docker in docker 需要宿主机的CPU MEM更多
-		"docker-in-docker": {
+		"docker-from-docker": {
 			"version": "latest",
 			"moby": true
 		},

@@ -47,8 +47,8 @@ RUN bash install-scripts/install-ohmyzsh.sh
 RUN bash install-scripts/install-docker.sh
 
 ### 👇🏻homebrew 官方只支持非root 用户安装，速度很慢，装完后超过500MB占用，考虑不装它，这里用清华的镜像站
-# RUN bash install-scripts/install-homebrew.sh
+RUN bash install-scripts/install-homebrew.sh
     
-VOLUME [ "/data" ]
+# VOLUME [ "/data" ]
 
 SHELL [ "zsh" ]

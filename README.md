@@ -65,8 +65,8 @@ TODO
 服务器：安装 Docker + [Nodejs](https://nodejs.org/)
 
 注1：若你的服务器在公司的内网而无法 ssh 登陆。可以用开源的内网穿透工具：[frp](https://github.com/fatedier/frp)
-注2：或者去各大公有云，已知aws和gcs目前可白嫖2个月。推荐选大陆以外的服务器，天然连通google，机器内存>8GB。
-注3：目前还未适配低权限，请全部使用root权限操作。
+注2：或者去各大公有云，已知aws和gcs目前可白嫖2-12个月。推荐选大陆以外的服务器，天然连通google，机器内存>8GB。
+
 ```
 
 ## 2.2 环境构建
@@ -75,6 +75,8 @@ TODO
 
 若你选择**本机开发**，那后文的**服务器**就是你个人使用的计算机，{server_ip} 就是 localhost；
 若你选择**远程开发**，那后文的**服务器**就是你能 ssh 登陆的那台远程 server, {server_ip}就是其地址。
+
+注1：目前还未适配低权限，请全部使用root权限操作，除非有特别说明。
 
 打开**服务器**的 terminal，
 
@@ -87,8 +89,12 @@ docker pull oldwinter/uni-tools:latest
 docker run -it -v /home:/home -v /var/run/docker.sock:/var/run/docker.sock oldwinter/uni-tools zsh -->
 
 ```bash
+# 请先确保你的服务器已经安装完成docker，docker-compose，以及npm
+docker version
+docker-compose version
+npm version
 
-# 根据提示，初始化项目，主要执行 git clone， docker build， docker run 等操作
+# 根据提示，初始化项目，主要执行 git clone， docker build， docker-compose up 等操作
 npm init metacloud
 ```
 
@@ -201,6 +207,14 @@ ce9e4d919166   devops_dev-server-toy   "/bin/sh -c 'pip3 in…"   7 minutes ago 
 > 这里目前需要科学上网，要访问谷歌（gcr）和微软（mcr.microsoft.com）自家的被墙的容器镜像仓库。
 
 **本机**新打开一个**服务器VSCode窗口**，此处设其名为 Z，
+
+**ctrl+`** 打开 VSCode 内置 Terminal，
+```bash
+# 前文执行环境均为root用户，由于minikube 不支持root用户启动，此处容器内改用vscode用户启动
+# 将工程所属从root修改，以便启动的容器能有修改文件的权限。
+# 请确保{user} {group}的uid和gid均为1000， {workspace}是你的工程根目录
+chown -R {user}:{group} {workspace}
+```
 
 `shift+cmd+p` 打开 VSCode 命令控制台，输入 `open folder in container`，选择metacloud工程根目录。
 
