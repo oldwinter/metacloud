@@ -89,7 +89,7 @@ async function init() {
 
   // mac和windows装好docker后，自带docker compose和docker-compose，linux这边要检测一下，装一下docker-compose CLI
   // https://docs.docker.com/compose/install/
-  await oraPromise(execPromise('curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose  && chmod +x /usr/local/bin/docker-compose'),{
+  await oraPromise(execPromise('curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose  && sudo chmod +x /usr/local/bin/docker-compose'),{
     text:"install docker-compose ...",
     successText:"install docker-compose done"
   })
