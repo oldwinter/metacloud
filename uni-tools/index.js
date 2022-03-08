@@ -85,7 +85,7 @@ async function init() {
 
   const spinnerCloneCode = ora('git clone ...').start()
   let childGit = await execPromise('git clone https://github.com/oldwinter/metacloud.git')
-  let childGit = await execPromise('chown -R 1000:1000 metacloud')
+  await execPromise('chown -R 1000:1000 metacloud')
   spinnerCloneCode.succeed('git clone done')
 
   // mac和windows装好docker后，自带docker compose和docker-compose，linux这边要检测一下，装一下docker-compose CLI

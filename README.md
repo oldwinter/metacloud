@@ -28,7 +28,9 @@
 
 <!-- [在线文档](https://doc.oldwinter.com) : <https://doc.oldwinter.com> -->
 
-TODO
+
+[[uni-tools/README]]
+#haha #牛批
 
 ## 1.3 项目预览
 
@@ -44,11 +46,13 @@ TODO
 
 ---
 
+
 # 2. 快速开始
 
 ## 2.1 软件安装
 
 注：
+//TODO 超速体验，vscode也用web版本，耗时约1分钟🚀🚀🚀 https://github.dev/oldwinter/MetaCloud
 若要快速体验，请选择本机开发+前端开发模式，耗时约5分钟🚀
 若要完整使用，请选择远程开发+运维开发模式，耗时约1天内🐶
 
@@ -150,11 +154,13 @@ vsc-metacloud-612dd3fcdc19c84c66941286bd4a8e42-features   latest            14ab
 # 进入前端代码目录
 cd metacloud/portal
 
+# pnpm 的node_modules目录结构整洁，冲这点用它了。
+npm install -g pnpm
 # 安装依赖
-npm i
+pnpm install
 
 # 启动 portal 开发
-npm run dev
+pnpm dev
 
 # ! 目前前端工程由于node_modules的存在，挂卷至容器，会造成较大性能问题，此处前端直接在server本地启动
 ```
@@ -367,3 +373,8 @@ tree -a -d  -L 3 --dirsfirst --gitignore
 |AWS|企业用户12个月免费| 需要master或visa卡
 |Azure|12个月免费|需要master或visa卡
 |GCS||
+
+[[uni-tools/README]]
+[[/elasticsearch/examples/config/values.yaml]]
+[[yaml/README]]
+#haha/aa
