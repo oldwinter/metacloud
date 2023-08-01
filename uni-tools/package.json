@@ -16,7 +16,7 @@
   "devDependencies": {
     "esbuild": "^0.14.23",
     "zx": "^5.1.0",
-    "pnpm": "6.32.1"
+    "pnpm": "7.33.4"
   },
   "scripts": {
     "dev": "pnpm run build && ./out.cjs",
