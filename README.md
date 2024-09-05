@@ -28,9 +28,9 @@
 
 <!-- [在线文档](https://doc.oldwinter.com) : <https://doc.oldwinter.com> -->
 
-
 [[uni-tools/README]]
-#haha #牛批
+
+# haha #牛批
 
 ## 1.3 项目预览
 
@@ -46,13 +46,12 @@
 
 ---
 
-
 # 2. 快速开始
 
 ## 2.1 软件安装
 
 注：
-//TODO 超速体验，vscode也用web版本，耗时约1分钟🚀🚀🚀 https://github.dev/oldwinter/MetaCloud
+//TODO 超速体验，vscode也用web版本，耗时约1分钟🚀🚀🚀 <https://github.dev/oldwinter/MetaCloud>
 若要快速体验，请选择本机开发+前端开发模式，耗时约5分钟🚀
 若要完整使用，请选择远程开发+运维开发模式，耗时约1天内🐶
 
@@ -215,6 +214,7 @@ ce9e4d919166   devops_dev-server-toy   "/bin/sh -c 'pip3 in…"   7 minutes ago 
 **本机**新打开一个**服务器VSCode窗口**，此处设其名为 Z，
 
 **ctrl+`** 打开 VSCode 内置 Terminal，
+
 ```bash
 # 前文执行环境均为root用户，由于minikube 不支持root用户启动，此处容器内改用vscode用户启动
 # 将工程所属从root修改，以便启动的容器能有修改文件的权限。
@@ -377,4 +377,10 @@ tree -a -d  -L 3 --dirsfirst --gitignore
 [[uni-tools/README]]
 [[/elasticsearch/examples/config/values.yaml]]
 [[yaml/README]]
-#haha/aa
+
+# haha/aa
+
+[[uni-tools/README]]
+[[metacloud-workflow/README]]
+
+[[uni-tools/pnpm-lock.yaml]]
