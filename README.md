@@ -26,11 +26,7 @@
 
 ## 1.2 项目文档
 
-<!-- [在线文档](https://doc.oldwinter.com) : <https://doc.oldwinter.com> -->
-
-[[uni-tools/README]]
-
-# haha #牛批
+仓内文档入口见 [uni-tools/README.md](uni-tools/README.md)。
 
 ## 1.3 项目预览
 
@@ -51,7 +47,7 @@
 ## 2.1 软件安装
 
 注：
-//TODO 超速体验，vscode也用web版本，耗时约1分钟🚀🚀🚀 <https://github.dev/oldwinter/MetaCloud>
+//TODO 超速体验，vscode也用web版本，耗时约1分钟🚀🚀🚀 <https://github.dev/oldwinter/metacloud>
 若要快速体验，请选择本机开发+前端开发模式，耗时约5分钟🚀
 若要完整使用，请选择远程开发+运维开发模式，耗时约1天内🐶
 
