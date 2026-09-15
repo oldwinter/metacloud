@@ -21,14 +21,10 @@ describe("README project docs entry", () => {
     assert.doesNotMatch(readme, /github\.dev\/oldwinter\/MetaCloud/);
   });
 
-  it("installs zx into a writable prefix so hosted CI is not 243", () => {
-    const npmrc = readFileSync(join(root, ".npmrc"), "utf8");
-    assert.match(npmrc, /^prefix=\.npm-global$/m);
-  });
-
-  it("keeps the historical docker-build entry the starter workflow calls", () => {
-    const script = readFileSync(join(root, "docker-build.mjs"), "utf8");
-    assert.match(script, /"--test", "tests\/readme-docs\.test\.mjs"/);
-    assert.doesNotMatch(script, /docker build/);
+  it("does not run global zx or a missing docker-build.mjs in CI", () => {
+    const workflow = readFileSync(join(root, ".github/workflows/main.yml"), "utf8");
+    assert.match(workflow, /node --test tests\/readme-docs\.test\.mjs/);
+    assert.doesNotMatch(workflow, /^\s+npm install -g zx/m);
+    assert.doesNotMatch(workflow, /^\s+zx docker-build\.mjs/m);
   });
 });
