@@ -4,7 +4,8 @@ import { dirname, join } from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
-const readme = readFileSync(join(dirname(fileURLToPath(import.meta.url)), "..", "README.md"), "utf8");
+const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const readme = readFileSync(join(root, "README.md"), "utf8");
 
 describe("README project docs entry", () => {
   it("points section 1.2 at the in-repo uni-tools README", () => {
@@ -18,5 +19,16 @@ describe("README project docs entry", () => {
   it("uses the real GitHub repo path for github.dev", () => {
     assert.match(readme, /https:\/\/github\.dev\/oldwinter\/metacloud/);
     assert.doesNotMatch(readme, /github\.dev\/oldwinter\/MetaCloud/);
+  });
+
+  it("installs zx into a writable prefix so hosted CI is not 243", () => {
+    const npmrc = readFileSync(join(root, ".npmrc"), "utf8");
+    assert.match(npmrc, /^prefix=\.npm-global$/m);
+  });
+
+  it("keeps the historical docker-build entry the starter workflow calls", () => {
+    const script = readFileSync(join(root, "docker-build.mjs"), "utf8");
+    assert.match(script, /"--test", "tests\/readme-docs\.test\.mjs"/);
+    assert.doesNotMatch(script, /docker build/);
   });
 });

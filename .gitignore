@@ -1,6 +1,7 @@
 # 
 .pnpm-store
 .DS_Store
+.npm-global/
 
 istio*
 uni-tools/.pnpm-debug.log
