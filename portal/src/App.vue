@@ -5,6 +5,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 </script>
 
 <template>
+  <a class="skip-link" href="#main">跳到正文</a>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
@@ -19,7 +20,9 @@ import HelloWorld from '@/components/HelloWorld.vue'
     <el-button>Default</el-button>
   </header>
 
-  <RouterView />
+  <div id="main" tabindex="-1">
+    <RouterView />
+  </div>
 </template>
 
 <style>
@@ -31,6 +34,21 @@ import HelloWorld from '@/components/HelloWorld.vue'
   padding: 2rem;
 
   font-weight: normal;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0.75rem;
+  z-index: 10;
+  padding: 0.4rem 0.75rem;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.skip-link:focus-visible {
+  left: 0.75rem;
+  outline: 2px solid var(--color-text);
 }
 
 header {
